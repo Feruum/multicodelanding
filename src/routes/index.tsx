@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { motion } from "framer-motion";
 import {
   ChevronDown,
   TrendingUp,
@@ -9,7 +10,18 @@ import {
   FileText,
   Folder,
   Globe,
+  Check,
+  Mail,
+  Server,
+  Type,
+  Atom,
 } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export const Route = createFileRoute("/")({
   head: () => ({
