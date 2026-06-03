@@ -787,39 +787,39 @@ function CTASection() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="relative overflow-hidden rounded-[2.5rem] bg-[linear-gradient(135deg,#0b1a4a_0%,#1e3a8a_35%,#3b5fe2_70%,#7c5cff_100%)] px-8 py-20 text-center"
+        className="relative overflow-hidden rounded-[2.5rem] bg-[linear-gradient(135deg,#f5f8ff_0%,#e8efff_45%,#dce8ff_75%,#e9e2ff_100%)] px-8 py-20 text-center ring-1 ring-[#2f7fff]/10"
       >
-        <div className="pointer-events-none absolute inset-0 opacity-60" style={{ backgroundImage: "radial-gradient(ellipse at 20% 0%, rgba(124,92,255,0.55), transparent 55%), radial-gradient(ellipse at 80% 100%, rgba(56,189,248,0.45), transparent 55%)" }} />
-        <div className="pointer-events-none absolute inset-0 opacity-[0.07]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "24px 24px" }} />
+        <div className="pointer-events-none absolute inset-0" style={{ backgroundImage: "radial-gradient(ellipse at 15% 0%, rgba(124,92,255,0.18), transparent 55%), radial-gradient(ellipse at 85% 100%, rgba(47,127,255,0.22), transparent 55%)" }} />
+        <div className="pointer-events-none absolute inset-0 opacity-[0.4]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, rgba(47,127,255,0.18) 1px, transparent 0)", backgroundSize: "24px 24px" }} />
         <motion.div
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 4, repeat: Infinity }}
-          className="pointer-events-none absolute top-10 left-10 h-20 w-20 rounded-2xl bg-white/5 ring-1 ring-white/10 backdrop-blur"
+          className="pointer-events-none absolute top-10 left-10 h-20 w-20 rounded-2xl bg-white/60 ring-1 ring-[#2f7fff]/15 backdrop-blur"
         />
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 5, repeat: Infinity }}
-          className="pointer-events-none absolute bottom-10 right-10 h-24 w-24 rounded-full bg-white/5 ring-1 ring-white/10 backdrop-blur"
+          className="pointer-events-none absolute bottom-10 right-10 h-24 w-24 rounded-full bg-white/60 ring-1 ring-[#2f7fff]/15 backdrop-blur"
         />
         <h2
-          className="relative text-[clamp(2rem,4.5vw,3.5rem)] font-bold leading-[1.05] tracking-[-0.03em] text-white"
+          className="relative text-[clamp(2rem,4.5vw,3.5rem)] font-bold leading-[1.05] tracking-[-0.03em] text-[#0a1530]"
           style={{ fontFamily: "'Space Grotesk', sans-serif" }}
         >
           Ready to build something that ships?
         </h2>
-        <p className="relative mx-auto mt-5 max-w-xl text-[16px] leading-relaxed text-white/70">
+        <p className="relative mx-auto mt-5 max-w-xl text-[16px] leading-relaxed text-[#0a1530]/65">
           Book a 30-minute strategy call with Szymon. No pitch — just a clear assessment of what's possible.
         </p>
         <div className="relative mt-9 flex flex-wrap items-center justify-center gap-3">
           <a
             href="#book"
-            className="rounded-xl bg-white px-7 py-3.5 text-[15px] font-semibold text-[#0a1530] shadow-[0_10px_30px_-10px_rgba(255,255,255,0.4)] transition-transform hover:-translate-y-0.5"
+            className="rounded-xl bg-[#0a1530] px-7 py-3.5 text-[15px] font-semibold text-white shadow-[0_10px_30px_-10px_rgba(10,21,48,0.5)] transition-transform hover:-translate-y-0.5"
           >
             Book a strategy call
           </a>
           <a
             href="#services"
-            className="rounded-xl bg-white/10 px-7 py-3.5 text-[15px] font-semibold text-white ring-1 ring-white/20 backdrop-blur hover:bg-white/15"
+            className="rounded-xl bg-white/70 px-7 py-3.5 text-[15px] font-semibold text-[#0a1530] ring-1 ring-[#0a1530]/10 backdrop-blur hover:bg-white"
           >
             See services
           </a>
