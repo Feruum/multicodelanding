@@ -174,7 +174,7 @@ function Index() {
             <span className="text-foreground/80">Trustpilot</span>
           </div>
 
-          <h1 className="mx-auto mt-7 max-w-4xl text-[clamp(2.5rem,6vw,4.75rem)] font-bold leading-[1.05] tracking-[-0.03em] text-foreground">
+          <h1 className="mx-auto mt-7 max-w-4xl text-[clamp(2.5rem,6vw,4.75rem)] font-bold leading-[1.05] tracking-[-0.04em] text-foreground" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
             Digital Products build to a
             <br />
             Higher<HeroIcon />Standard
