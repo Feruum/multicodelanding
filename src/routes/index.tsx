@@ -75,7 +75,7 @@ function CardShell({
   return (
     <div className="rounded-3xl bg-gradient-to-b from-white to-[#e6efff] p-6 shadow-[0_10px_40px_-15px_rgba(47,127,255,0.25)] ring-1 ring-white/60">
       <div className="h-[260px] flex items-center justify-center">{children}</div>
-      <h3 className="mt-2 text-[22px] font-semibold tracking-tight">{title}</h3>
+      <h3 className="mt-2 text-[22px] font-semibold tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>{title}</h3>
       <p className="mt-3 text-[15px] leading-relaxed text-foreground/60">{description}</p>
     </div>
   );
