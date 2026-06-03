@@ -575,6 +575,257 @@ function Footer() {
   );
 }
 
+/* ---------- Logo Marquee ---------- */
+function LogoMarquee() {
+  const logos = ["TechCrunch", "Forbes", "Wired", "Bloomberg", "Fast Company", "Inc.", "VentureBeat"];
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8, delay: 0.7 }}
+      className="relative mt-16 overflow-hidden"
+    >
+      <p className="mb-5 text-[12px] uppercase tracking-[0.2em] text-foreground/40">Trusted by teams at</p>
+      <div className="relative flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
+        <motion.div
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          className="flex shrink-0 items-center gap-14 pr-14"
+        >
+          {[...logos, ...logos].map((l, i) => (
+            <span
+              key={i}
+              className="text-[22px] font-semibold tracking-tight text-foreground/30"
+              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+            >
+              {l}
+            </span>
+          ))}
+        </motion.div>
+      </div>
+    </motion.div>
+  );
+}
+
+/* ---------- Stats Section ---------- */
+function StatsSection() {
+  const stats = [
+    { value: "120+", label: "Projects shipped" },
+    { value: "98%", label: "Client retention" },
+    { value: "1.2s", label: "Avg. load time" },
+    { value: "90+", label: "Lighthouse score" },
+  ];
+  return (
+    <section className="relative mx-auto mt-32 max-w-6xl px-6">
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={stagger}
+        className="grid gap-6 rounded-3xl bg-foreground/[0.03] p-10 ring-1 ring-black/[0.04] md:grid-cols-4"
+      >
+        {stats.map((s) => (
+          <motion.div key={s.label} variants={fadeUp} className="text-center">
+            <div className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-tight text-[#2f7fff]" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+              {s.value}
+            </div>
+            <div className="mt-1 text-[14px] text-foreground/60">{s.label}</div>
+          </motion.div>
+        ))}
+      </motion.div>
+    </section>
+  );
+}
+
+/* ---------- Process Section ---------- */
+function ProcessSection() {
+  const steps = [
+    { n: "01", title: "Discovery", desc: "Deep-dive into your business, users, and constraints. Output: written strategy doc." },
+    { n: "02", title: "Design Sprint", desc: "Wireframes, prototypes, and visual direction reviewed weekly with the CEO." },
+    { n: "03", title: "Build", desc: "In-house engineering with daily commits. You see progress in real time." },
+    { n: "04", title: "Launch & SLA", desc: "Performance-tested ship, then ongoing 99.9% uptime guarantee." },
+  ];
+  return (
+    <section className="relative mx-auto mt-32 max-w-6xl px-6">
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={stagger}
+        className="text-center"
+      >
+        <motion.p variants={fadeUp} className="text-[13px] font-semibold uppercase tracking-[0.2em] text-[#2f7fff]">
+          Our Process
+        </motion.p>
+        <motion.h2
+          variants={fadeUp}
+          className="mt-3 text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em]"
+          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+        >
+          A clear path from idea to launch.
+        </motion.h2>
+      </motion.div>
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-50px" }}
+        variants={stagger}
+        className="relative mt-12 grid gap-5 md:grid-cols-4"
+      >
+        {steps.map((s, i) => (
+          <motion.div
+            key={s.n}
+            variants={fadeUp}
+            whileHover={{ y: -4 }}
+            className="relative rounded-2xl bg-white p-6 shadow-[0_10px_40px_-20px_rgba(15,30,60,0.12)] ring-1 ring-black/[0.04]"
+          >
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#4f96ff] to-[#2f7fff] text-[13px] font-bold text-white shadow-md">
+              {s.n}
+            </div>
+            <h3 className="mt-5 text-[18px] font-semibold tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+              {s.title}
+            </h3>
+            <p className="mt-2 text-[14px] leading-relaxed text-foreground/55">{s.desc}</p>
+            {i < steps.length - 1 && (
+              <div className="absolute top-11 -right-3 hidden h-px w-6 bg-foreground/15 md:block" />
+            )}
+          </motion.div>
+        ))}
+      </motion.div>
+    </section>
+  );
+}
+
+/* ---------- Testimonials Section ---------- */
+function TestimonialsSection() {
+  const items = [
+    { quote: "Invette didn't just build our store — they rebuilt our conversion funnel. Revenue is up 38% in 90 days.", name: "Marta Kowalski", role: "Founder, Lumio Skincare" },
+    { quote: "Szymon was on every call. That's almost unheard of. The strategy work alone paid for the engagement.", name: "Daniel Reyes", role: "CTO, NovaPay" },
+    { quote: "Lighthouse 90+ in the contract changed everything. No more debates about performance — it was just delivered.", name: "Priya Shah", role: "Head of Product, Halo" },
+  ];
+  return (
+    <section className="relative mx-auto mt-32 max-w-6xl px-6">
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={stagger}
+        className="text-center"
+      >
+        <motion.h2
+          variants={fadeUp}
+          className="text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em]"
+          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+        >
+          Loved by founders who ship.
+        </motion.h2>
+      </motion.div>
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-50px" }}
+        variants={stagger}
+        className="mt-10 grid gap-5 md:grid-cols-3"
+      >
+        {items.map((t) => (
+          <motion.div
+            key={t.name}
+            variants={fadeUp}
+            whileHover={{ y: -4 }}
+            className="flex flex-col rounded-3xl bg-white p-7 shadow-[0_10px_40px_-20px_rgba(15,30,60,0.12)] ring-1 ring-black/[0.04]"
+          >
+            <div className="flex gap-0.5">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="h-4 w-4 text-[#f5b400]" fill="#f5b400" />
+              ))}
+            </div>
+            <p className="mt-4 flex-1 text-[15px] leading-relaxed text-foreground/75">"{t.quote}"</p>
+            <div className="mt-6 flex items-center gap-3 border-t border-foreground/[0.08] pt-4">
+              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#4f96ff] to-[#2f7fff] text-[14px] font-semibold text-white">
+                {t.name.split(" ").map((n) => n[0]).join("")}
+              </div>
+              <div>
+                <div className="text-[14px] font-semibold">{t.name}</div>
+                <div className="text-[12px] text-foreground/50">{t.role}</div>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </motion.div>
+    </section>
+  );
+}
+
+/* ---------- Final CTA ---------- */
+function CTASection() {
+  return (
+    <section className="relative mx-auto mt-32 max-w-6xl px-6">
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-[#0a1530] via-[#0d1f4a] to-[#2f7fff] px-8 py-20 text-center"
+      >
+        <div className="pointer-events-none absolute inset-0 opacity-40" style={{ backgroundImage: "radial-gradient(ellipse at top, rgba(127,182,255,0.4), transparent 60%)" }} />
+        <motion.div
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 4, repeat: Infinity }}
+          className="pointer-events-none absolute top-10 left-10 h-20 w-20 rounded-2xl bg-white/5 ring-1 ring-white/10 backdrop-blur"
+        />
+        <motion.div
+          animate={{ y: [0, 10, 0] }}
+          transition={{ duration: 5, repeat: Infinity }}
+          className="pointer-events-none absolute bottom-10 right-10 h-24 w-24 rounded-full bg-white/5 ring-1 ring-white/10 backdrop-blur"
+        />
+        <h2
+          className="relative text-[clamp(2rem,4.5vw,3.5rem)] font-bold leading-[1.05] tracking-[-0.03em] text-white"
+          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+        >
+          Ready to build something that ships?
+        </h2>
+        <p className="relative mx-auto mt-5 max-w-xl text-[16px] leading-relaxed text-white/70">
+          Book a 30-minute strategy call with Szymon. No pitch — just a clear assessment of what's possible.
+        </p>
+        <div className="relative mt-9 flex flex-wrap items-center justify-center gap-3">
+          <a
+            href="#book"
+            className="rounded-xl bg-white px-7 py-3.5 text-[15px] font-semibold text-[#0a1530] shadow-[0_10px_30px_-10px_rgba(255,255,255,0.4)] transition-transform hover:-translate-y-0.5"
+          >
+            Book a strategy call
+          </a>
+          <a
+            href="#services"
+            className="rounded-xl bg-white/10 px-7 py-3.5 text-[15px] font-semibold text-white ring-1 ring-white/20 backdrop-blur hover:bg-white/15"
+          >
+            See services
+          </a>
+        </div>
+      </motion.div>
+    </section>
+  );
+}
+
+function FooterDup_unused() {
+  return (
+    <footer className="border-t border-black/[0.06] bg-background">
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-10 md:flex-row">
+        <a href="#top" className="text-[18px] font-semibold tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+          <span className="text-[#2f7fff]">in</span>
+          <span className="text-foreground">vette.dev</span>
+        </a>
+        <ul className="flex items-center gap-6 text-[14px] text-foreground/60">
+          <li><a href="#services" className="hover:text-foreground">Services</a></li>
+          <li><a href="#work" className="hover:text-foreground">Work</a></li>
+          <li><a href="#about" className="hover:text-foreground">About</a></li>
+          <li><a href="#book" className="hover:text-foreground">Contract</a></li>
+        </ul>
+        <p className="text-[13px] text-foreground/50">© 2026 invette.dev — All rights reserved.</p>
+      </div>
+    </footer>
+  );
+}
+
 function Index() {
   return (
     <div id="top" className="relative min-h-screen overflow-hidden bg-background">
