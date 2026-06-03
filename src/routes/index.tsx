@@ -806,26 +806,6 @@ function CTASection() {
   );
 }
 
-function FooterDup_unused() {
-  return (
-    <footer className="border-t border-black/[0.06] bg-background">
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-10 md:flex-row">
-        <a href="#top" className="text-[18px] font-semibold tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-          <span className="text-[#2f7fff]">in</span>
-          <span className="text-foreground">vette.dev</span>
-        </a>
-        <ul className="flex items-center gap-6 text-[14px] text-foreground/60">
-          <li><a href="#services" className="hover:text-foreground">Services</a></li>
-          <li><a href="#work" className="hover:text-foreground">Work</a></li>
-          <li><a href="#about" className="hover:text-foreground">About</a></li>
-          <li><a href="#book" className="hover:text-foreground">Contract</a></li>
-        </ul>
-        <p className="text-[13px] text-foreground/50">© 2026 invette.dev — All rights reserved.</p>
-      </div>
-    </footer>
-  );
-}
-
 function Index() {
   return (
     <div id="top" className="relative min-h-screen overflow-hidden bg-background">
