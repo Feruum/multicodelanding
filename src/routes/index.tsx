@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { motion } from "framer-motion";
 import {
   ChevronDown,
   TrendingUp,
@@ -9,7 +10,18 @@ import {
   FileText,
   Folder,
   Globe,
+  Check,
+  Mail,
+  Server,
+  Type,
+  Atom,
 } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -31,18 +43,27 @@ export const Route = createFileRoute("/")({
 });
 
 function Nav() {
+  const links = [
+    { label: "Services", href: "#services" },
+    { label: "Work", href: "#work" },
+    { label: "About", href: "#about" },
+    { label: "Contract", href: "#faq" },
+  ];
   return (
     <header className="fixed top-5 left-1/2 z-50 -translate-x-1/2 w-[min(1100px,calc(100%-2rem))]">
       <nav className="flex items-center justify-between rounded-2xl bg-white/90 backdrop-blur px-5 py-3 shadow-[0_4px_30px_rgba(15,30,60,0.06)] ring-1 ring-black/[0.04]">
-        <a href="/" className="text-[20px] font-semibold tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+        <a href="#top" className="text-[20px] font-semibold tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
           <span className="text-[#2f7fff]">in</span>
           <span className="text-foreground">vette.dev</span>
         </a>
         <ul className="hidden md:flex items-center gap-7 text-[15px] text-foreground/80">
-          <li className="flex items-center gap-1 cursor-pointer hover:text-foreground">Services <ChevronDown className="h-4 w-4" /></li>
-          <li className="flex items-center gap-1 cursor-pointer hover:text-foreground">Work <ChevronDown className="h-4 w-4" /></li>
-          <li className="cursor-pointer hover:text-foreground">About</li>
-          <li className="cursor-pointer hover:text-foreground">Contract</li>
+          {links.map((l) => (
+            <li key={l.href}>
+              <a href={l.href} className="hover:text-foreground transition-colors">
+                {l.label}
+              </a>
+            </li>
+          ))}
         </ul>
         <a
           href="#book"
@@ -158,9 +179,405 @@ function B2BArt() {
   );
 }
 
+/* ---------- Animation helpers ---------- */
+const fadeUp = {
+  hidden: { opacity: 0, y: 30 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const } },
+};
+const stagger = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.12 } },
+};
+
+function ServiceCard({
+  title,
+  description,
+  art,
+}: {
+  title: string;
+  description: string;
+  art: React.ReactNode;
+}) {
+  return (
+    <motion.div
+      variants={fadeUp}
+      whileHover={{ y: -4 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+      className="group rounded-3xl bg-white p-3 shadow-[0_10px_40px_-20px_rgba(15,30,60,0.15)] ring-1 ring-black/[0.04]"
+    >
+      <div className="relative h-[280px] overflow-hidden rounded-2xl bg-gradient-to-b from-[#dbe8ff] to-[#eef4ff]">
+        {art}
+      </div>
+      <div className="px-4 pt-5 pb-4">
+        <h3
+          className="text-[22px] font-semibold tracking-tight"
+          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+        >
+          {title}
+        </h3>
+        <p className="mt-2 text-[15px] text-foreground/55">{description}</p>
+      </div>
+    </motion.div>
+  );
+}
+
+function EcomArt() {
+  return (
+    <div className="absolute inset-0 flex items-center justify-center px-6">
+      <div className="absolute top-4 left-1/2 -translate-x-1/2 rounded-full bg-white px-3 py-1 text-[11px] shadow ring-1 ring-black/5">
+        <span className="font-semibold text-[#2f7fff]">141</span>{" "}
+        <span className="text-foreground/60">Orders Today</span>
+      </div>
+      <div className="flex items-end gap-3">
+        <motion.div
+          animate={{ y: [0, -6, 0] }}
+          transition={{ duration: 4, repeat: Infinity }}
+          className="w-24 -rotate-6 rounded-xl bg-white p-2 shadow-lg ring-1 ring-black/5"
+        >
+          <div className="h-20 rounded-md bg-gradient-to-br from-slate-700 to-slate-900" />
+          <div className="mt-2 text-[9px] font-semibold">UFL Backpack</div>
+          <div className="text-[8px] text-foreground/50">Lightweight</div>
+          <div className="mt-1 text-[10px] font-bold">$200</div>
+        </motion.div>
+        <motion.div
+          animate={{ y: [0, -10, 0] }}
+          transition={{ duration: 4, repeat: Infinity, delay: 0.5 }}
+          className="w-28 rounded-xl bg-white p-2 shadow-xl ring-1 ring-black/5"
+        >
+          <div className="h-20 rounded-md bg-gradient-to-br from-[#a8c5ff] to-[#dce8ff]" />
+          <div className="mt-2 text-[9px] font-semibold">Cloudstrike X1</div>
+          <div className="text-[8px] text-foreground/50">All day comfort</div>
+          <div className="mt-1 text-[10px] font-bold">$128</div>
+        </motion.div>
+        <motion.div
+          animate={{ y: [0, -6, 0] }}
+          transition={{ duration: 4, repeat: Infinity, delay: 1 }}
+          className="w-24 rotate-6 rounded-xl bg-white p-2 shadow-lg ring-1 ring-black/5"
+        >
+          <div className="h-20 rounded-md bg-gradient-to-br from-[#ffd9b8] to-[#ffe9d4]" />
+          <div className="mt-2 text-[9px] font-semibold">Smart Headphone</div>
+          <div className="text-[8px] text-foreground/50">Premium audio</div>
+          <div className="mt-1 text-[10px] font-bold">$128</div>
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
+function SLAArt() {
+  return (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="absolute top-5 left-6 rounded-full bg-white px-3 py-1 text-[11px] shadow ring-1 ring-black/5">
+        <span className="font-semibold text-[#2f7fff]">99.9%</span>{" "}
+        <span className="text-foreground/60">Uptime</span>
+      </div>
+      <div className="absolute top-5 left-1/2 -translate-x-1/2 rounded-full bg-white px-3 py-1 text-[11px] shadow ring-1 ring-black/5">
+        <span className="font-semibold text-[#2f7fff]">24/7</span>{" "}
+        <span className="text-foreground/60">Support</span>
+      </div>
+      <div className="absolute top-5 right-6 rounded-full bg-white px-3 py-1 text-[11px] shadow ring-1 ring-black/5">
+        <span className="font-semibold text-[#2f7fff]">&lt;1</span>{" "}
+        <span className="text-foreground/60">Response</span>
+      </div>
+      <motion.div
+        animate={{ scale: [1, 1.05, 1] }}
+        transition={{ duration: 3, repeat: Infinity }}
+        className="relative mt-6 flex h-32 w-44 items-center justify-center rounded-2xl bg-gradient-to-b from-white to-[#dde9ff] shadow-xl ring-1 ring-white"
+      >
+        <Mail className="absolute inset-0 m-auto h-20 w-20 text-[#a8c5ff]" strokeWidth={1.2} />
+        <div className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#4f96ff] to-[#2f7fff] shadow-lg">
+          <Check className="h-7 w-7 text-white" strokeWidth={3} />
+        </div>
+      </motion.div>
+    </div>
+  );
+}
+
+function DevArt() {
+  return (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 300 280" fill="none" preserveAspectRatio="none">
+        <path d="M70 80 L150 140 M150 140 L230 80 M150 140 L70 200 M150 140 L230 200" stroke="#b8cfff" strokeWidth="1.5" strokeDasharray="4 4" />
+      </svg>
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+        className="absolute top-8 left-8 flex h-12 w-12 items-center justify-center rounded-xl bg-white shadow-md ring-1 ring-black/5"
+      >
+        <Atom className="h-6 w-6 text-[#61dafb]" />
+      </motion.div>
+      <div className="absolute bottom-8 left-8 flex h-12 w-12 items-center justify-center rounded-xl bg-white shadow-md ring-1 ring-black/5">
+        <div className="h-5 w-5 rounded-full bg-gradient-to-br from-green-400 to-green-700" />
+      </div>
+      <div className="relative flex h-20 w-20 items-center justify-center rounded-2xl bg-white shadow-xl ring-1 ring-black/5">
+        <span className="text-3xl font-bold text-[#2f7fff]" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>in</span>
+      </div>
+      <div className="absolute top-8 right-8 flex h-12 w-12 items-center justify-center rounded-xl bg-black shadow-md">
+        <span className="text-lg font-bold text-white">N</span>
+      </div>
+      <div className="absolute bottom-8 right-8 flex h-12 w-12 items-center justify-center rounded-xl bg-[#3c873a] shadow-md">
+        <span className="text-[10px] font-bold text-white">node</span>
+      </div>
+    </div>
+  );
+}
+
+function DesignArt() {
+  return (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <div className="absolute top-4 right-6 rounded-md bg-white px-2 py-1 text-[10px] shadow ring-1 ring-black/5">
+        <span className="font-semibold">Depth</span> <span className="text-foreground/50">5.0</span>
+      </div>
+      <div className="absolute top-12 left-1/2 rounded-md bg-[#ff3d8b] px-2 py-1 text-[10px] font-semibold text-white shadow">
+        Web Design
+      </div>
+      <div className="flex items-center gap-2">
+        <motion.div whileHover={{ scale: 1.1 }} className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-lg ring-1 ring-black/5">
+          <Type className="h-7 w-7 text-foreground" />
+        </motion.div>
+        <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-pink-400 via-purple-400 to-blue-400 shadow-lg" />
+        <motion.div whileHover={{ scale: 1.1 }} className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-lg ring-1 ring-black/5">
+          <div className="h-7 w-7 rounded-full border-4 border-[#2f7fff]" />
+        </motion.div>
+      </div>
+      <div className="absolute bottom-6 flex items-center gap-2">
+        <div className="flex gap-1 rounded-full bg-white px-2 py-1 shadow ring-1 ring-black/5">
+          {["#2f7fff", "#7c3aed", "#f59e0b", "#ef4444"].map((c) => (
+            <div key={c} className="h-3 w-3 rounded-full" style={{ background: c }} />
+          ))}
+        </div>
+        <div className="rounded-full bg-[#2f7fff] px-3 py-1 text-[10px] font-semibold text-white shadow">UI/UX Design</div>
+      </div>
+    </div>
+  );
+}
+
+function HostingArt() {
+  return (
+    <div className="absolute inset-0 flex items-center justify-center">
+      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 300 280" fill="none" preserveAspectRatio="none">
+        <path d="M0 140 L100 140 M200 140 L300 140 M150 0 L150 80 M150 200 L150 280" stroke="#b8cfff" strokeWidth="1" strokeDasharray="4 4" />
+      </svg>
+      <motion.div
+        animate={{ scale: [1, 1.08, 1] }}
+        transition={{ duration: 2.5, repeat: Infinity }}
+        className="relative flex h-28 w-28 items-center justify-center rounded-3xl bg-white shadow-2xl ring-1 ring-black/5"
+      >
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
+          <defs>
+            <linearGradient id="zapGrad" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0%" stopColor="#7fb6ff" />
+              <stop offset="100%" stopColor="#2f7fff" />
+            </linearGradient>
+          </defs>
+          <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" fill="url(#zapGrad)" stroke="url(#zapGrad)" strokeWidth="1" strokeLinejoin="round" />
+        </svg>
+      </motion.div>
+    </div>
+  );
+}
+
+function ServicesSection() {
+  return (
+    <section id="services" className="relative mx-auto mt-32 max-w-6xl px-6">
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={stagger}
+        className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between"
+      >
+        <motion.h2
+          variants={fadeUp}
+          className="max-w-2xl text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold leading-[1.15] tracking-[-0.03em]"
+          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+        >
+          Not a generic agency. A studio with a{" "}
+          <span className="font-bold">contractual commitment</span> to performance.
+        </motion.h2>
+        <motion.a
+          variants={fadeUp}
+          href="#book"
+          className="self-start rounded-xl bg-gradient-to-b from-[#4f96ff] to-[#2f7fff] px-5 py-2.5 text-[14px] font-medium text-white shadow-[0_10px_25px_-8px_rgba(47,127,255,0.6)] hover:opacity-95"
+        >
+          Book a strategy call
+        </motion.a>
+      </motion.div>
+
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-50px" }}
+        variants={stagger}
+        className="mt-10 grid gap-5 md:grid-cols-2"
+      >
+        <ServiceCard title="E-Commerce Systems" description="Keep files, briefs, and updates in one living workspace" art={<EcomArt />} />
+        <ServiceCard title="Enterprise SLA" description="Keep files, briefs, and updates in one living workspace" art={<SLAArt />} />
+      </motion.div>
+
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-50px" }}
+        variants={stagger}
+        className="mt-5 grid gap-5 md:grid-cols-3"
+      >
+        <ServiceCard title="Custom Development" description="Tailored systems engineered around your workflow" art={<DevArt />} />
+        <ServiceCard title="UI/UX Design" description="Keep files, briefs, and updates in one living workspace" art={<DesignArt />} />
+        <ServiceCard title="Lightning Fast Hosting" description="Skip the fluff—get the most important takeaways from any video in seconds." art={<HostingArt />} />
+      </motion.div>
+    </section>
+  );
+}
+
+function CEOSection() {
+  const cards = [
+    { n: "01", title: "Szymon is on the kickoff call. Always", desc: "Not introduced halfway through. From day one — understanding your business, your users, your constraints.", tag: "From day one" },
+    { n: "02", title: "Every strategic decision goes through him.", desc: "Not introduced halfway through. From day one — understanding your business, your users, your constraints.", tag: "CEO sign-off required" },
+    { n: "03", title: "His name is on the contract", desc: "CEO involvement is a written contractual condition. If it doesn't happen, the terms are breached.", tag: "Contractually binding" },
+  ];
+  return (
+    <section id="about" className="relative mx-auto mt-32 max-w-6xl px-6">
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={stagger}
+        className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between"
+      >
+        <div className="max-w-2xl">
+          <motion.h2
+            variants={fadeUp}
+            className="text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold leading-[1.15] tracking-[-0.03em]"
+            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+          >
+            CEO-led strategy. On every project.
+          </motion.h2>
+          <motion.p variants={fadeUp} className="mt-4 text-[15px] leading-relaxed text-foreground/60">
+            Most agencies delegate strategy to a project manager after the contract is signed. At Invette,{" "}
+            <span className="font-semibold text-foreground">Szymon Til — founder and CEO — is personally involved in every project above 30,000 PLN.</span>{" "}
+            Not as a figurehead. On the calls. Reviewing the work. Accountable.
+          </motion.p>
+        </div>
+        <motion.div variants={fadeUp} className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-[13px] shadow-sm ring-1 ring-black/[0.05]">
+          <span className="h-2 w-2 rounded-full bg-[#2f7fff]" />
+          CEO involvement is a contractual condition - to a sales promise
+        </motion.div>
+      </motion.div>
+
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-50px" }}
+        variants={stagger}
+        className="mt-10 grid gap-5 md:grid-cols-3"
+      >
+        {cards.map((c) => (
+          <motion.div
+            key={c.n}
+            variants={fadeUp}
+            whileHover={{ y: -4 }}
+            className="rounded-3xl bg-white p-6 shadow-[0_10px_40px_-20px_rgba(15,30,60,0.12)] ring-1 ring-black/[0.04]"
+          >
+            <div className="text-[18px] font-bold text-[#2f7fff]" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>{c.n}</div>
+            <h3 className="mt-3 text-[20px] font-semibold leading-tight tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>{c.title}</h3>
+            <p className="mt-4 text-[14px] leading-relaxed text-foreground/55">{c.desc}</p>
+            <div className="my-5 h-px bg-foreground/10" />
+            <div className="flex items-center gap-2 text-[13px]">
+              <span className="flex h-5 w-5 items-center justify-center rounded bg-[#2f7fff]">
+                <Check className="h-3.5 w-3.5 text-white" strokeWidth={3} />
+              </span>
+              {c.tag}
+            </div>
+          </motion.div>
+        ))}
+      </motion.div>
+    </section>
+  );
+}
+
+function FAQSection() {
+  const faqs = [
+    { q: "How does the CEO-led model work in practice?", a: ["Szymon joins the kickoff call and stays accountable through delivery. Strategic decisions require his sign-off."] },
+    { q: "What does Lighthouse 90+ contractually guranteed mean?", a: [
+      "15 people — 8-9 senior designers, 3-4 developers, an AI engineer, a PM, and operations support. All work is done in-house with no outsourcing to third parties.",
+      "Every designer on the team has worked on funded startups, so they understand the pace and expectations.",
+      "We're structured to handle multiple projects simultaneously without spreading thin — you're not competing for attention with ten other clients.",
+    ] },
+    { q: "Which platforms do you specialise in?", a: ["Shopify, WooCommerce, Magento for e-commerce. Next.js, React, Node for custom builds."] },
+    { q: "How do I start with invette.dev", a: ["Book a strategy call. We'll review your goals, then send a scoped proposal within 48 hours."] },
+    { q: "What's included in the SLA package?", a: ["99.9% uptime guarantee, 24/7 monitoring, <1 hour response time on critical incidents."] },
+  ];
+  return (
+    <section id="book" className="relative mt-32">
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={stagger}
+        className="mx-auto max-w-6xl rounded-[2.5rem] bg-gradient-to-b from-[#d9e7ff] to-[#eaf1ff] px-6 py-20"
+      >
+        <motion.h2
+          variants={fadeUp}
+          className="text-center text-[clamp(2rem,4vw,3rem)] font-semibold tracking-[-0.03em]"
+          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+        >
+          Frequently Asked Questions
+        </motion.h2>
+        <motion.p variants={fadeUp} className="mx-auto mt-3 max-w-md text-center text-[15px] text-foreground/60">
+          Trusted by next-gen startups and established enterprises.
+        </motion.p>
+        <motion.div variants={fadeUp} className="mx-auto mt-10 max-w-2xl">
+          <Accordion type="single" collapsible defaultValue="item-1" className="space-y-3">
+            {faqs.map((f, i) => (
+              <AccordionItem
+                key={i}
+                value={`item-${i}`}
+                className="overflow-hidden rounded-2xl border-0 bg-white px-6 shadow-[0_4px_20px_-10px_rgba(15,30,60,0.1)] ring-1 ring-black/[0.03]"
+              >
+                <AccordionTrigger className="py-5 text-left text-[16px] font-semibold hover:no-underline" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+                  <span>
+                    <span className="text-foreground/40">0{i + 1}.</span>
+                    <span className="ml-2">{f.q}</span>
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="space-y-3 pb-5 text-[14px] leading-relaxed text-foreground/60">
+                  {f.a.map((p, j) => (
+                    <p key={j}>{p}</p>
+                  ))}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="border-t border-black/[0.06] bg-background">
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-10 md:flex-row">
+        <a href="#top" className="text-[18px] font-semibold tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+          <span className="text-[#2f7fff]">in</span>
+          <span className="text-foreground">vette.dev</span>
+        </a>
+        <ul className="flex items-center gap-6 text-[14px] text-foreground/60">
+          <li><a href="#services" className="hover:text-foreground">Services</a></li>
+          <li><a href="#work" className="hover:text-foreground">Work</a></li>
+          <li><a href="#about" className="hover:text-foreground">About</a></li>
+          <li><a href="#book" className="hover:text-foreground">Contract</a></li>
+        </ul>
+        <p className="text-[13px] text-foreground/50">© 2026 invette.dev — All rights reserved.</p>
+      </div>
+    </footer>
+  );
+}
+
 function Index() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-background">
+    <div id="top" className="relative min-h-screen overflow-hidden bg-background">
       <Nav />
 
       <main className="relative pt-40 pb-24">
@@ -200,7 +617,7 @@ function Index() {
           </div>
         </section>
 
-        <section className="relative mx-auto mt-20 grid max-w-6xl gap-6 px-6 md:grid-cols-3">
+        <section id="work" className="relative mx-auto mt-20 grid max-w-6xl gap-6 px-6 md:grid-cols-3">
           <CardShell
             title="E-Commerce"
             description="Made to help online stores look trusted and easy to buy from. Clear design helps customers decide faster"
@@ -220,7 +637,12 @@ function Index() {
             <B2BArt />
           </CardShell>
         </section>
+
+        <ServicesSection />
+        <CEOSection />
+        <FAQSection />
       </main>
+      <Footer />
     </div>
   );
 }

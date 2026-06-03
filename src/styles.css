@@ -149,3 +149,11 @@
 .hero-glow {
   background-image: radial-gradient(ellipse 70% 60% at 50% 75%, rgba(120, 170, 255, 0.45), transparent 70%);
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+section[id] {
+  scroll-margin-top: 100px;
+}
