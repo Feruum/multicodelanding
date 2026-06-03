@@ -585,39 +585,69 @@ function Index() {
         <div className="hero-glow pointer-events-none absolute inset-x-0 top-32 h-[700px]" />
 
         <section className="relative mx-auto max-w-6xl px-6 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-[14px] shadow-sm ring-1 ring-black/[0.04]">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-[14px] shadow-sm ring-1 ring-black/[0.04]"
+          >
             <span className="font-medium">5.0 Rating</span>
             <Star className="h-4 w-4 text-[#00b67a]" fill="#00b67a" />
             <span className="text-foreground/80">Trustpilot</span>
-          </div>
+          </motion.div>
 
-          <h1 className="mx-auto mt-7 max-w-4xl text-[clamp(2.5rem,6vw,4.75rem)] font-bold leading-[1.05] tracking-[-0.04em] text-foreground" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
+            className="mx-auto mt-7 max-w-4xl text-[clamp(2.5rem,6vw,4.75rem)] font-bold leading-[1.05] tracking-[-0.04em] text-foreground"
+            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+          >
             Digital Products build to a
             <br />
             Higher<HeroIcon />Standard
-          </h1>
+          </motion.h1>
 
-          <p className="mx-auto mt-7 max-w-2xl text-[17px] leading-relaxed text-foreground/55">
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+            className="mx-auto mt-7 max-w-2xl text-[17px] leading-relaxed text-foreground/55"
+          >
             Strategy, UX research, and engineering — with Lighthouse 90+ written into every contract as an acceptance criterion
-          </p>
+          </motion.p>
 
-          <div className="mt-10 flex items-center justify-center gap-3">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.45 }}
+            className="mt-10 flex items-center justify-center gap-3"
+          >
             <a
               href="#book"
-              className="rounded-xl bg-gradient-to-b from-[#4f96ff] to-[#2f7fff] px-6 py-3 text-[15px] font-medium text-white shadow-[0_10px_25px_-8px_rgba(47,127,255,0.6)] hover:opacity-95"
+              className="rounded-xl bg-gradient-to-b from-[#4f96ff] to-[#2f7fff] px-6 py-3 text-[15px] font-medium text-white shadow-[0_10px_25px_-8px_rgba(47,127,255,0.6)] hover:opacity-95 transition-transform hover:-translate-y-0.5"
             >
               Book a strategy call
             </a>
             <a
               href="#work"
-              className="rounded-xl bg-white px-6 py-3 text-[15px] font-medium text-foreground shadow-sm ring-1 ring-black/[0.06] hover:bg-white/80"
+              className="rounded-xl bg-white px-6 py-3 text-[15px] font-medium text-foreground shadow-sm ring-1 ring-black/[0.06] hover:bg-white/80 transition-transform hover:-translate-y-0.5"
             >
               See Our Work
             </a>
-          </div>
+          </motion.div>
+
+          <LogoMarquee />
         </section>
 
-        <section id="work" className="relative mx-auto mt-20 grid max-w-6xl gap-6 px-6 md:grid-cols-3">
+        <motion.section
+          id="work"
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={stagger}
+          className="relative mx-auto mt-20 grid max-w-6xl gap-6 px-6 md:grid-cols-3"
+        >
           <CardShell
             title="E-Commerce"
             description="Made to help online stores look trusted and easy to buy from. Clear design helps customers decide faster"
@@ -636,11 +666,15 @@ function Index() {
           >
             <B2BArt />
           </CardShell>
-        </section>
+        </motion.section>
 
         <ServicesSection />
+        <StatsSection />
+        <ProcessSection />
         <CEOSection />
+        <TestimonialsSection />
         <FAQSection />
+        <CTASection />
       </main>
       <Footer />
     </div>
