@@ -22,6 +22,13 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import processDiscovery from "@/assets/process-discovery.jpg";
+import processDesign from "@/assets/process-design.jpg";
+import processBuild from "@/assets/process-build.jpg";
+import processLaunch from "@/assets/process-launch.jpg";
+import avatar1 from "@/assets/avatar-1.jpg";
+import avatar2 from "@/assets/avatar-2.jpg";
+import avatar3 from "@/assets/avatar-3.jpg";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -640,10 +647,10 @@ function StatsSection() {
 /* ---------- Process Section ---------- */
 function ProcessSection() {
   const steps = [
-    { n: "01", title: "Discovery", desc: "Deep-dive into your business, users, and constraints. Output: written strategy doc." },
-    { n: "02", title: "Design Sprint", desc: "Wireframes, prototypes, and visual direction reviewed weekly with the CEO." },
-    { n: "03", title: "Build", desc: "In-house engineering with daily commits. You see progress in real time." },
-    { n: "04", title: "Launch & SLA", desc: "Performance-tested ship, then ongoing 99.9% uptime guarantee." },
+    { n: "01", title: "Discovery", desc: "Deep-dive into your business, users, and constraints. Output: written strategy doc.", img: processDiscovery },
+    { n: "02", title: "Design Sprint", desc: "Wireframes, prototypes, and visual direction reviewed weekly with the CEO.", img: processDesign },
+    { n: "03", title: "Build", desc: "In-house engineering with daily commits. You see progress in real time.", img: processBuild },
+    { n: "04", title: "Launch & SLA", desc: "Performance-tested ship, then ongoing 99.9% uptime guarantee.", img: processLaunch },
   ];
   return (
     <section className="relative mx-auto mt-32 max-w-6xl px-6">
@@ -677,8 +684,18 @@ function ProcessSection() {
             key={s.n}
             variants={fadeUp}
             whileHover={{ y: -4 }}
-            className="relative rounded-2xl bg-white p-6 shadow-[0_10px_40px_-20px_rgba(15,30,60,0.12)] ring-1 ring-black/[0.04]"
+            className="relative overflow-hidden rounded-2xl bg-white p-6 shadow-[0_10px_40px_-20px_rgba(15,30,60,0.12)] ring-1 ring-black/[0.04]"
           >
+            <div className="mb-5 -mx-6 -mt-6 aspect-[4/3] overflow-hidden bg-gradient-to-br from-[#eef4ff] to-[#dbe8ff]">
+              <img
+                src={s.img}
+                alt={s.title}
+                loading="lazy"
+                width={1024}
+                height={1024}
+                className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+              />
+            </div>
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#4f96ff] to-[#2f7fff] text-[13px] font-bold text-white shadow-md">
               {s.n}
             </div>
@@ -699,9 +716,9 @@ function ProcessSection() {
 /* ---------- Testimonials Section ---------- */
 function TestimonialsSection() {
   const items = [
-    { quote: "Invette didn't just build our store — they rebuilt our conversion funnel. Revenue is up 38% in 90 days.", name: "Marta Kowalski", role: "Founder, Lumio Skincare" },
-    { quote: "Szymon was on every call. That's almost unheard of. The strategy work alone paid for the engagement.", name: "Daniel Reyes", role: "CTO, NovaPay" },
-    { quote: "Lighthouse 90+ in the contract changed everything. No more debates about performance — it was just delivered.", name: "Priya Shah", role: "Head of Product, Halo" },
+    { quote: "Invette didn't just build our store — they rebuilt our conversion funnel. Revenue is up 38% in 90 days.", name: "Marta Kowalski", role: "Founder, Lumio Skincare", avatar: avatar1 },
+    { quote: "Szymon was on every call. That's almost unheard of. The strategy work alone paid for the engagement.", name: "Daniel Reyes", role: "CTO, NovaPay", avatar: avatar2 },
+    { quote: "Lighthouse 90+ in the contract changed everything. No more debates about performance — it was just delivered.", name: "Priya Shah", role: "Head of Product, Halo", avatar: avatar3 },
   ];
   return (
     <section className="relative mx-auto mt-32 max-w-6xl px-6">
@@ -741,9 +758,14 @@ function TestimonialsSection() {
             </div>
             <p className="mt-4 flex-1 text-[15px] leading-relaxed text-foreground/75">"{t.quote}"</p>
             <div className="mt-6 flex items-center gap-3 border-t border-foreground/[0.08] pt-4">
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#4f96ff] to-[#2f7fff] text-[14px] font-semibold text-white">
-                {t.name.split(" ").map((n) => n[0]).join("")}
-              </div>
+              <img
+                src={t.avatar}
+                alt={t.name}
+                loading="lazy"
+                width={40}
+                height={40}
+                className="h-10 w-10 rounded-full object-cover ring-2 ring-white shadow-sm"
+              />
               <div>
                 <div className="text-[14px] font-semibold">{t.name}</div>
                 <div className="text-[12px] text-foreground/50">{t.role}</div>
@@ -765,9 +787,10 @@ function CTASection() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-[#0a1530] via-[#0d1f4a] to-[#2f7fff] px-8 py-20 text-center"
+        className="relative overflow-hidden rounded-[2.5rem] bg-[linear-gradient(135deg,#0b1a4a_0%,#1e3a8a_35%,#3b5fe2_70%,#7c5cff_100%)] px-8 py-20 text-center"
       >
-        <div className="pointer-events-none absolute inset-0 opacity-40" style={{ backgroundImage: "radial-gradient(ellipse at top, rgba(127,182,255,0.4), transparent 60%)" }} />
+        <div className="pointer-events-none absolute inset-0 opacity-60" style={{ backgroundImage: "radial-gradient(ellipse at 20% 0%, rgba(124,92,255,0.55), transparent 55%), radial-gradient(ellipse at 80% 100%, rgba(56,189,248,0.45), transparent 55%)" }} />
+        <div className="pointer-events-none absolute inset-0 opacity-[0.07]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, white 1px, transparent 0)", backgroundSize: "24px 24px" }} />
         <motion.div
           animate={{ y: [0, -10, 0] }}
           transition={{ duration: 4, repeat: Infinity }}
