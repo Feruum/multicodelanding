@@ -43,18 +43,27 @@ export const Route = createFileRoute("/")({
 });
 
 function Nav() {
+  const links = [
+    { label: "Services", href: "#services" },
+    { label: "Work", href: "#work" },
+    { label: "About", href: "#about" },
+    { label: "Contract", href: "#faq" },
+  ];
   return (
     <header className="fixed top-5 left-1/2 z-50 -translate-x-1/2 w-[min(1100px,calc(100%-2rem))]">
       <nav className="flex items-center justify-between rounded-2xl bg-white/90 backdrop-blur px-5 py-3 shadow-[0_4px_30px_rgba(15,30,60,0.06)] ring-1 ring-black/[0.04]">
-        <a href="/" className="text-[20px] font-semibold tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
+        <a href="#top" className="text-[20px] font-semibold tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
           <span className="text-[#2f7fff]">in</span>
           <span className="text-foreground">vette.dev</span>
         </a>
         <ul className="hidden md:flex items-center gap-7 text-[15px] text-foreground/80">
-          <li className="flex items-center gap-1 cursor-pointer hover:text-foreground">Services <ChevronDown className="h-4 w-4" /></li>
-          <li className="flex items-center gap-1 cursor-pointer hover:text-foreground">Work <ChevronDown className="h-4 w-4" /></li>
-          <li className="cursor-pointer hover:text-foreground">About</li>
-          <li className="cursor-pointer hover:text-foreground">Contract</li>
+          {links.map((l) => (
+            <li key={l.href}>
+              <a href={l.href} className="hover:text-foreground transition-colors">
+                {l.label}
+              </a>
+            </li>
+          ))}
         </ul>
         <a
           href="#book"
