@@ -34,7 +34,7 @@ function Nav() {
   return (
     <header className="fixed top-5 left-1/2 z-50 -translate-x-1/2 w-[min(1100px,calc(100%-2rem))]">
       <nav className="flex items-center justify-between rounded-2xl bg-white/90 backdrop-blur px-5 py-3 shadow-[0_4px_30px_rgba(15,30,60,0.06)] ring-1 ring-black/[0.04]">
-        <a href="/" className="text-[20px] font-semibold tracking-tight">
+        <a href="/" className="text-[20px] font-semibold tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
           <span className="text-[#2f7fff]">in</span>
           <span className="text-foreground">vette.dev</span>
         </a>
