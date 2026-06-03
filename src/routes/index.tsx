@@ -181,7 +181,7 @@ function B2BArt() {
 
 function Index() {
   return (
-    <div className="relative min-h-screen overflow-hidden bg-background">
+    <div id="top" className="relative min-h-screen overflow-hidden bg-background">
       <Nav />
 
       <main className="relative pt-40 pb-24">
@@ -221,7 +221,7 @@ function Index() {
           </div>
         </section>
 
-        <section className="relative mx-auto mt-20 grid max-w-6xl gap-6 px-6 md:grid-cols-3">
+        <section id="work" className="relative mx-auto mt-20 grid max-w-6xl gap-6 px-6 md:grid-cols-3">
           <CardShell
             title="E-Commerce"
             description="Made to help online stores look trusted and easy to buy from. Clear design helps customers decide faster"
@@ -241,7 +241,12 @@ function Index() {
             <B2BArt />
           </CardShell>
         </section>
+
+        <ServicesSection />
+        <CEOSection />
+        <FAQSection />
       </main>
+      <Footer />
     </div>
   );
 }
