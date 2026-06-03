@@ -34,7 +34,7 @@ function Nav() {
   return (
     <header className="fixed top-5 left-1/2 z-50 -translate-x-1/2 w-[min(1100px,calc(100%-2rem))]">
       <nav className="flex items-center justify-between rounded-2xl bg-white/90 backdrop-blur px-5 py-3 shadow-[0_4px_30px_rgba(15,30,60,0.06)] ring-1 ring-black/[0.04]">
-        <a href="/" className="text-[20px] font-semibold tracking-tight">
+        <a href="/" className="text-[20px] font-semibold tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
           <span className="text-[#2f7fff]">in</span>
           <span className="text-foreground">vette.dev</span>
         </a>
@@ -75,7 +75,7 @@ function CardShell({
   return (
     <div className="rounded-3xl bg-gradient-to-b from-white to-[#e6efff] p-6 shadow-[0_10px_40px_-15px_rgba(47,127,255,0.25)] ring-1 ring-white/60">
       <div className="h-[260px] flex items-center justify-center">{children}</div>
-      <h3 className="mt-2 text-[22px] font-semibold tracking-tight">{title}</h3>
+      <h3 className="mt-2 text-[22px] font-semibold tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>{title}</h3>
       <p className="mt-3 text-[15px] leading-relaxed text-foreground/60">{description}</p>
     </div>
   );
@@ -174,7 +174,7 @@ function Index() {
             <span className="text-foreground/80">Trustpilot</span>
           </div>
 
-          <h1 className="mx-auto mt-7 max-w-4xl text-[clamp(2.5rem,6vw,4.75rem)] font-bold leading-[1.05] tracking-[-0.03em] text-foreground">
+          <h1 className="mx-auto mt-7 max-w-4xl text-[clamp(2.5rem,6vw,4.75rem)] font-bold leading-[1.05] tracking-[-0.04em] text-foreground" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
             Digital Products build to a
             <br />
             Higher<HeroIcon />Standard
