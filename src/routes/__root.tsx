@@ -11,6 +11,7 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { TrainScrollbar } from "../components/train-scrollbar";
 
 function NotFoundComponent() {
   return (
@@ -77,18 +78,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Pixel Perfect Hero generates identical hero sections and landing pages with precise styling and animations." },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Pixel Perfect Hero generates identical hero sections and landing pages with precise styling and animations." },
+      { title: "Multicode — IT-решения для железнодорожной индустрии" },
+      { name: "description", content: "Комплексная платформа автоматизации для ЖД-операторов: управление вагонным парком, цифровизация станций, аналитика на базе ИИ." },
+      { name: "author", content: "Multicode" },
+      { property: "og:title", content: "Multicode — IT-решения для железнодорожной индустрии" },
+      { property: "og:description", content: "Комплексная платформа автоматизации для ЖД-операторов: управление вагонным парком, цифровизация станций, аналитика на базе ИИ." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
-      { name: "twitter:title", content: "Lovable App" },
-      { name: "twitter:description", content: "Pixel Perfect Hero generates identical hero sections and landing pages with precise styling and animations." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e3eef891-9ef0-44fb-b2e8-5783a211bf86/id-preview-645814d5--b4254c87-08ee-4872-8833-b7986312338e.lovable.app-1780472466410.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/e3eef891-9ef0-44fb-b2e8-5783a211bf86/id-preview-645814d5--b4254c87-08ee-4872-8833-b7986312338e.lovable.app-1780472466410.png" },
+      { name: "twitter:site", content: "@multicode_tech" },
+      { name: "twitter:title", content: "Multicode — IT-решения для железнодорожной индустрии" },
+      { name: "twitter:description", content: "Комплексная платформа автоматизации для ЖД-операторов: управление вагонным парком, цифровизация станций, аналитика на базе ИИ." },
+      { property: "og:image", content: "https://multicode.tech/src/assets/hero-train.png" },
+      { name: "twitter:image", content: "https://multicode.tech/src/assets/hero-train.png" },
     ],
     links: [
       {
@@ -105,7 +106,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootShell({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="ru">
       <head>
         <HeadContent />
       </head>
@@ -124,6 +125,7 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
+      <TrainScrollbar />
     </QueryClientProvider>
   );
 }

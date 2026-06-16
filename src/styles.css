@@ -1,7 +1,7 @@
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Space+Mono:wght@400;700&family=Instrument+Serif:ital@0;1&display=swap");
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
-@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap");
 
 @custom-variant dark (&:is(.dark *));
 
@@ -60,6 +60,7 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --font-mono: "Space Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 :root {
@@ -70,7 +71,7 @@
   --card-foreground: oklch(0.129 0.042 264.695);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.62 0.2 255);
+  --primary: oklch(0.545 0.125 255);
   --primary-foreground: oklch(0.984 0.003 247.858);
   --secondary: oklch(0.968 0.007 247.896);
   --secondary-foreground: oklch(0.208 0.042 265.755);
@@ -147,13 +148,57 @@
 }
 
 .hero-glow {
-  background-image: radial-gradient(ellipse 70% 60% at 50% 75%, rgba(120, 170, 255, 0.45), transparent 70%);
+  background-image: radial-gradient(
+    ellipse 70% 60% at 50% 75%,
+    rgba(120, 170, 255, 0.45),
+    transparent 70%
+  );
 }
 
 html {
   scroll-behavior: smooth;
+  -ms-overflow-style: auto;
 }
 
 section[id] {
   scroll-margin-top: 100px;
+}
+
+/* Hide native scrollbar on desktop so the custom train scrollbar is the only one */
+@media (min-width: 768px) {
+  html {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  html::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Hero serif font (Aethera-style) */
+.font-serif-hero {
+  font-family: 'Instrument Serif', serif;
+}
+
+/* Gentle floating dot used in hero meta */
+@keyframes drift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  50% { transform: translate3d(0, -12px, 0) scale(1.02); }
+}
+.drift {
+  animation: drift 9s ease-in-out infinite;
+}
+
+/* Infinite marquee track */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.marquee-track {
+  animation: marquee 38s linear infinite;
+}
+
+video::-webkit-media-controls {
+  display: none !important;
 }

@@ -1,21 +1,21 @@
+import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
 import {
-  ChevronDown,
-  TrendingUp,
   Star,
-  Zap,
-  Package,
-  X,
-  FileText,
-  Folder,
-  Globe,
   Check,
+  Train,
+  MapPin,
+  BarChart3,
+  Shield,
+  Radio,
+  Cpu,
+  Globe,
   Mail,
-  Server,
-  Type,
-  Atom,
+  ArrowRight,
 } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Hero } from "@/components/hero";
 import {
   Accordion,
   AccordionContent,
@@ -26,68 +26,140 @@ import processDiscovery from "@/assets/process-discovery.jpg";
 import processDesign from "@/assets/process-design.jpg";
 import processBuild from "@/assets/process-build.jpg";
 import processLaunch from "@/assets/process-launch.jpg";
+import mapFrame from "@/assets/map-frame.png";
+import logo from "@/assets/logo.png";
 import avatar1 from "@/assets/avatar-1.jpg";
 import avatar2 from "@/assets/avatar-2.jpg";
 import avatar3 from "@/assets/avatar-3.jpg";
+import mediaDigitalBusiness from "@/assets/media-digitalbusiness.svg";
+import mediaForbes from "@/assets/forbes.png";
+import mediaAtameken from "@/assets/Atameken_Business.webp";
+import clientQaztemir from "@/assets/client-qaztemir.png";
+import clientUtyCargo from "@/assets/client-utycargo.png";
+import clientKazzinc from "@/assets/client-kazzinc-new.svg";
+import clientTranco from "@/assets/client-tranco.png";
+import clientAtasu from "@/assets/client-atasu.svg";
+import clientPmk from "@/assets/client-pmk.png";
+import clientEastcom from "@/assets/client-eastcom.png";
+import clientArlantrans from "@/assets/client-arlantrans.png";
+import clientAdy from "@/assets/client-ady.png";
+import clientLogotransenergy from "@/assets/client-logotransenergy.png";
+
+declare module "*.png" {
+  const src: string;
+  export default src;
+}
+declare module "*.jpg" {
+  const src: string;
+  export default src;
+}
+declare module "*.jpeg" {
+  const src: string;
+  export default src;
+}
+declare module "*.svg" {
+  const src: string;
+  export default src;
+}
+declare module "*.webp" {
+  const src: string;
+  export default src;
+}
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "invette.dev — Digital Products built to a Higher Standard" },
+      { title: "Multicode — IT-решения для железнодорожной индустрии" },
       {
         name: "description",
         content:
-          "Strategy, UX research, and engineering — with Lighthouse 90+ written into every contract as an acceptance criterion.",
+          "Комплексная платформа автоматизации для ЖД-операторов. Управление вагонным парком, цифровизация станций, аналитика на базе ИИ.",
       },
-      { property: "og:title", content: "invette.dev — Digital Products" },
+      { property: "og:title", content: "Multicode — Digital Railway Solutions" },
       {
         property: "og:description",
-        content: "Strategy, UX research, and engineering for E-Commerce, Startups, and B2B.",
+        content: "IT-решения для ЖД-операторов: управление парком, цифровизация станций, аналитика.",
       },
     ],
   }),
   component: Index,
 });
 
-function Nav() {
+function useHeroScrolled(threshold = 0.85) {
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const handle = () => setScrolled(window.scrollY > window.innerHeight * threshold);
+    handle();
+    window.addEventListener("scroll", handle, { passive: true });
+    window.addEventListener("resize", handle, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", handle);
+      window.removeEventListener("resize", handle);
+    };
+  }, [threshold]);
+  return scrolled;
+}
+
+function Nav({ scrolled }: { scrolled: boolean }) {
   const links = [
-    { label: "Services", href: "#services" },
-    { label: "Work", href: "#work" },
-    { label: "About", href: "#about" },
-    { label: "Contract", href: "#faq" },
+    { label: "Продукты", href: "#products" },
+    { label: "Клиенты", href: "#clients" },
+    { label: "О компании", href: "#about" },
+    { label: "Вопросы", href: "#faq" },
   ];
   return (
-    <header className="fixed top-5 left-1/2 z-50 -translate-x-1/2 w-[min(1100px,calc(100%-2rem))]">
-      <nav className="flex items-center justify-between rounded-2xl bg-white/90 backdrop-blur px-5 py-3 shadow-[0_4px_30px_rgba(15,30,60,0.06)] ring-1 ring-black/[0.04]">
-        <a href="#top" className="text-[20px] font-semibold tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-          <span className="text-[#2f7fff]">in</span>
-          <span className="text-foreground">vette.dev</span>
+    <header className="fixed top-5 left-1/2 z-50 w-[min(1100px,calc(100%-2rem))] -translate-x-1/2">
+      <nav
+        className={cn(
+          "flex items-center justify-between rounded-2xl px-5 py-3 transition-colors duration-300",
+          scrolled
+            ? "bg-white/95 backdrop-blur shadow-[0_4px_30px_rgba(15,30,60,0.06)] ring-1 ring-black/[0.04]"
+            : "bg-black/20 backdrop-blur-md ring-1 ring-white/10",
+        )}
+      >
+        <a href="#top" className="flex items-center gap-2">
+          <img
+            src={logo}
+            alt="Multicode"
+            className={cn(
+              "h-6 w-auto brightness-0 transition",
+              scrolled ? "" : "invert",
+            )}
+          />
         </a>
-        <ul className="hidden md:flex items-center gap-7 text-[15px] text-foreground/80">
+        <ul
+          className={cn(
+            "hidden md:flex items-center gap-7 text-[15px]",
+            scrolled ? "text-foreground/80" : "text-white/80",
+          )}
+        >
           {links.map((l) => (
             <li key={l.href}>
-              <a href={l.href} className="hover:text-foreground transition-colors">
+              <a
+                href={l.href}
+                className={cn(
+                  "transition-colors",
+                  scrolled ? "hover:text-foreground" : "hover:text-white",
+                )}
+              >
                 {l.label}
               </a>
             </li>
           ))}
         </ul>
         <a
-          href="#book"
-          className="rounded-xl bg-black px-5 py-2.5 text-[14px] font-medium text-white hover:bg-black/85 transition"
+          href="#contact"
+          className={cn(
+            "rounded-xl px-5 py-2.5 text-[14px] font-medium transition",
+            scrolled
+              ? "bg-black text-white hover:bg-black/90"
+              : "bg-white text-black hover:bg-white/90",
+          )}
         >
-          Book a Call
+          Связаться
         </a>
       </nav>
     </header>
-  );
-}
-
-function HeroIcon() {
-  return (
-    <span className="inline-flex align-middle mx-3 h-[0.95em] w-[0.95em] items-center justify-center rounded-[22%] bg-gradient-to-br from-[#7fb6ff] to-[#2f7fff] shadow-[0_10px_25px_-8px_rgba(47,127,255,0.7)] ring-1 ring-white/40">
-      <TrendingUp className="h-[55%] w-[55%] text-white" strokeWidth={3} />
-    </span>
   );
 }
 
@@ -101,92 +173,19 @@ function CardShell({
   children: React.ReactNode;
 }) {
   return (
-    <div className="rounded-3xl bg-gradient-to-b from-white to-[#e6efff] p-6 shadow-[0_10px_40px_-15px_rgba(47,127,255,0.25)] ring-1 ring-white/60">
+    <div className="rounded-3xl bg-gradient-to-b from-white to-[#e6efff] p-6 shadow-[0_10px_40px_-15px_rgba(59,107,196,0.25)] ring-1 ring-white/60">
       <div className="h-[260px] flex items-center justify-center">{children}</div>
-      <h3 className="mt-2 text-[22px] font-semibold tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>{title}</h3>
+      <h3
+        className="mt-2 text-[22px] font-semibold tracking-tight"
+        style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+      >
+        {title}
+      </h3>
       <p className="mt-3 text-[15px] leading-relaxed text-foreground/60">{description}</p>
     </div>
   );
 }
 
-function PlatformPill({ bg, label, color }: { bg: string; label: string; color: string }) {
-  return (
-    <div
-      className="flex h-12 w-12 items-center justify-center rounded-xl text-[11px] font-bold shadow-md ring-1 ring-black/5"
-      style={{ background: bg, color }}
-    >
-      {label}
-    </div>
-  );
-}
-
-function ECommerceArt() {
-  return (
-    <div className="relative w-full h-full flex flex-col items-center justify-center">
-      <div className="h-16 w-16 rounded-2xl bg-white shadow-md ring-1 ring-[#dce7ff] flex items-center justify-center">
-        <span className="text-2xl font-bold"><span className="text-[#2f7fff]">in</span></span>
-      </div>
-      <svg className="my-2" width="160" height="40" viewBox="0 0 160 40" fill="none">
-        <path d="M80 0 V12 M80 12 H20 V28 M80 12 H140 V28 M80 12 V28" stroke="#9bbcff" strokeDasharray="3 3" strokeWidth="1.5" />
-      </svg>
-      <div className="flex gap-5">
-        <PlatformPill bg="#fff1ea" label="M" color="#f26322" />
-        <PlatformPill bg="#e8fbe6" label="S" color="#5e8e3e" />
-        <PlatformPill bg="#f1e8ff" label="woo" color="#7c4bcc" />
-      </div>
-    </div>
-  );
-}
-
-function StartupArt() {
-  const Row = ({ icon, name, size }: { icon: React.ReactNode; name: string; size: string }) => (
-    <div className="flex items-center gap-3 rounded-xl bg-white/80 backdrop-blur px-3 py-2 shadow-sm ring-1 ring-white">
-      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#eef3ff] text-[#2f7fff]">{icon}</div>
-      <div className="flex-1">
-        <div className="text-[13px] font-medium">{name}</div>
-        <div className="text-[11px] text-foreground/50">{size}</div>
-      </div>
-      <X className="h-4 w-4 text-foreground/30" />
-    </div>
-  );
-  return (
-    <div className="relative w-full h-full">
-      <div className="absolute inset-x-6 top-0 space-y-2">
-        <Row icon={<FileText className="h-4 w-4" />} name="Pitch Deck" size="24.32 MB" />
-        <Row icon={<Folder className="h-4 w-4" />} name="Traction" size="8.16 MB" />
-        <Row icon={<Globe className="h-4 w-4" />} name="Website" size="46.88 MB" />
-      </div>
-      <svg className="absolute bottom-0 left-1/2 -translate-x-1/2" width="180" height="90" viewBox="0 0 180 90" fill="none">
-        <path d="M10 30 L90 10 L170 30 L170 80 L10 80 Z" fill="#f4f7fd" stroke="#d6e2f5" />
-        <path d="M10 30 L90 50 L170 30" fill="#fafbfe" stroke="#d6e2f5" />
-      </svg>
-    </div>
-  );
-}
-
-function B2BArt() {
-  const Row = ({ title, sub, tag, tagColor }: { title: string; sub: string; tag: string; tagColor: string }) => (
-    <div className="flex items-center gap-3 rounded-xl bg-white/80 backdrop-blur px-3 py-2.5 shadow-sm ring-1 ring-white">
-      <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#eef3ff]">
-        <Zap className="h-4 w-4 text-[#2f7fff]" fill="#2f7fff" />
-      </div>
-      <div className="flex-1">
-        <div className="text-[13px] font-semibold">{title}</div>
-        <div className="text-[11px] text-foreground/50">{sub}</div>
-      </div>
-      <span className="rounded-md px-2 py-0.5 text-[10px] font-medium" style={{ background: tagColor + "20", color: tagColor }}>{tag}</span>
-    </div>
-  );
-  return (
-    <div className="w-full space-y-2 px-3">
-      <Row title="Value Clarity" sub="Communicated In Seconds" tag="Clear" tagColor="#2f9e6e" />
-      <Row title="Trust Signal" sub="Secure And Reliable" tag="Strong" tagColor="#2f9e6e" />
-      <Row title="Load Speed" sub="Page Loads In 1.2s" tag="Fast" tagColor="#2f9e6e" />
-    </div>
-  );
-}
-
-/* ---------- Animation helpers ---------- */
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const } },
@@ -196,197 +195,61 @@ const stagger = {
   show: { transition: { staggerChildren: 0.12 } },
 };
 
-function ServiceCard({
+function ProductIcon({ icon: Icon, label }: { icon: React.ElementType; label: string }) {
+  return (
+    <div className="flex flex-col items-center gap-2">
+      <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-md ring-1 ring-[#dce7ff]">
+        <Icon className="h-8 w-8 text-[#3b6bc4]" />
+      </div>
+      <span className="text-[12px] font-semibold text-foreground/60">{label}</span>
+    </div>
+  );
+}
+
+function ProductCard({
   title,
   description,
-  art,
+  features,
+  icon: Icon,
 }: {
   title: string;
   description: string;
-  art: React.ReactNode;
+  features: string[];
+  icon: React.ElementType;
 }) {
   return (
     <motion.div
       variants={fadeUp}
       whileHover={{ y: -4 }}
-      transition={{ type: "spring", stiffness: 300, damping: 20 }}
-      className="group rounded-3xl bg-white p-3 shadow-[0_10px_40px_-20px_rgba(15,30,60,0.15)] ring-1 ring-black/[0.04]"
+      className="rounded-3xl bg-white p-6 shadow-[0_10px_40px_-20px_rgba(15,30,60,0.12)] ring-1 ring-black/[0.04]"
     >
-      <div className="relative h-[280px] overflow-hidden rounded-2xl bg-gradient-to-b from-[#dbe8ff] to-[#eef4ff]">
-        {art}
+      <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#3b6bc4]/10 text-[#3b6bc4]">
+        <Icon className="h-7 w-7" />
       </div>
-      <div className="px-4 pt-5 pb-4">
-        <h3
-          className="text-[22px] font-semibold tracking-tight"
-          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-        >
-          {title}
-        </h3>
-        <p className="mt-2 text-[15px] text-foreground/55">{description}</p>
-      </div>
+      <h3
+        className="mt-5 text-[22px] font-semibold tracking-tight"
+        style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+      >
+        {title}
+      </h3>
+      <p className="mt-2 text-[15px] leading-relaxed text-foreground/55">{description}</p>
+      <ul className="mt-5 space-y-2">
+        {features.map((f) => (
+          <li key={f} className="flex items-center gap-2 text-[14px] text-foreground/60">
+            <span className="flex h-5 w-5 items-center justify-center rounded bg-[#3b6bc4]/10">
+              <Check className="h-3.5 w-3.5 text-[#3b6bc4]" strokeWidth={3} />
+            </span>
+            {f}
+          </li>
+        ))}
+      </ul>
     </motion.div>
   );
 }
 
-function EcomArt() {
+function ProductsSection() {
   return (
-    <div className="absolute inset-0 flex items-center justify-center px-6">
-      <div className="absolute top-4 left-1/2 -translate-x-1/2 rounded-full bg-white px-3 py-1 text-[11px] shadow ring-1 ring-black/5">
-        <span className="font-semibold text-[#2f7fff]">141</span>{" "}
-        <span className="text-foreground/60">Orders Today</span>
-      </div>
-      <div className="flex items-end gap-3">
-        <motion.div
-          animate={{ y: [0, -6, 0] }}
-          transition={{ duration: 4, repeat: Infinity }}
-          className="w-24 -rotate-6 rounded-xl bg-white p-2 shadow-lg ring-1 ring-black/5"
-        >
-          <div className="h-20 rounded-md bg-gradient-to-br from-slate-700 to-slate-900" />
-          <div className="mt-2 text-[9px] font-semibold">UFL Backpack</div>
-          <div className="text-[8px] text-foreground/50">Lightweight</div>
-          <div className="mt-1 text-[10px] font-bold">$200</div>
-        </motion.div>
-        <motion.div
-          animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 4, repeat: Infinity, delay: 0.5 }}
-          className="w-28 rounded-xl bg-white p-2 shadow-xl ring-1 ring-black/5"
-        >
-          <div className="h-20 rounded-md bg-gradient-to-br from-[#a8c5ff] to-[#dce8ff]" />
-          <div className="mt-2 text-[9px] font-semibold">Cloudstrike X1</div>
-          <div className="text-[8px] text-foreground/50">All day comfort</div>
-          <div className="mt-1 text-[10px] font-bold">$128</div>
-        </motion.div>
-        <motion.div
-          animate={{ y: [0, -6, 0] }}
-          transition={{ duration: 4, repeat: Infinity, delay: 1 }}
-          className="w-24 rotate-6 rounded-xl bg-white p-2 shadow-lg ring-1 ring-black/5"
-        >
-          <div className="h-20 rounded-md bg-gradient-to-br from-[#ffd9b8] to-[#ffe9d4]" />
-          <div className="mt-2 text-[9px] font-semibold">Smart Headphone</div>
-          <div className="text-[8px] text-foreground/50">Premium audio</div>
-          <div className="mt-1 text-[10px] font-bold">$128</div>
-        </motion.div>
-      </div>
-    </div>
-  );
-}
-
-function SLAArt() {
-  return (
-    <div className="absolute inset-0 flex items-center justify-center">
-      <div className="absolute top-5 left-6 rounded-full bg-white px-3 py-1 text-[11px] shadow ring-1 ring-black/5">
-        <span className="font-semibold text-[#2f7fff]">99.9%</span>{" "}
-        <span className="text-foreground/60">Uptime</span>
-      </div>
-      <div className="absolute top-5 left-1/2 -translate-x-1/2 rounded-full bg-white px-3 py-1 text-[11px] shadow ring-1 ring-black/5">
-        <span className="font-semibold text-[#2f7fff]">24/7</span>{" "}
-        <span className="text-foreground/60">Support</span>
-      </div>
-      <div className="absolute top-5 right-6 rounded-full bg-white px-3 py-1 text-[11px] shadow ring-1 ring-black/5">
-        <span className="font-semibold text-[#2f7fff]">&lt;1</span>{" "}
-        <span className="text-foreground/60">Response</span>
-      </div>
-      <motion.div
-        animate={{ scale: [1, 1.05, 1] }}
-        transition={{ duration: 3, repeat: Infinity }}
-        className="relative mt-6 flex h-32 w-44 items-center justify-center rounded-2xl bg-gradient-to-b from-white to-[#dde9ff] shadow-xl ring-1 ring-white"
-      >
-        <Mail className="absolute inset-0 m-auto h-20 w-20 text-[#a8c5ff]" strokeWidth={1.2} />
-        <div className="relative flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-[#4f96ff] to-[#2f7fff] shadow-lg">
-          <Check className="h-7 w-7 text-white" strokeWidth={3} />
-        </div>
-      </motion.div>
-    </div>
-  );
-}
-
-function DevArt() {
-  return (
-    <div className="absolute inset-0 flex items-center justify-center">
-      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 300 280" fill="none" preserveAspectRatio="none">
-        <path d="M70 80 L150 140 M150 140 L230 80 M150 140 L70 200 M150 140 L230 200" stroke="#b8cfff" strokeWidth="1.5" strokeDasharray="4 4" />
-      </svg>
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        className="absolute top-8 left-8 flex h-12 w-12 items-center justify-center rounded-xl bg-white shadow-md ring-1 ring-black/5"
-      >
-        <Atom className="h-6 w-6 text-[#61dafb]" />
-      </motion.div>
-      <div className="absolute bottom-8 left-8 flex h-12 w-12 items-center justify-center rounded-xl bg-white shadow-md ring-1 ring-black/5">
-        <div className="h-5 w-5 rounded-full bg-gradient-to-br from-green-400 to-green-700" />
-      </div>
-      <div className="relative flex h-20 w-20 items-center justify-center rounded-2xl bg-white shadow-xl ring-1 ring-black/5">
-        <span className="text-3xl font-bold text-[#2f7fff]" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>in</span>
-      </div>
-      <div className="absolute top-8 right-8 flex h-12 w-12 items-center justify-center rounded-xl bg-black shadow-md">
-        <span className="text-lg font-bold text-white">N</span>
-      </div>
-      <div className="absolute bottom-8 right-8 flex h-12 w-12 items-center justify-center rounded-xl bg-[#3c873a] shadow-md">
-        <span className="text-[10px] font-bold text-white">node</span>
-      </div>
-    </div>
-  );
-}
-
-function DesignArt() {
-  return (
-    <div className="absolute inset-0 flex items-center justify-center">
-      <div className="absolute top-4 right-6 rounded-md bg-white px-2 py-1 text-[10px] shadow ring-1 ring-black/5">
-        <span className="font-semibold">Depth</span> <span className="text-foreground/50">5.0</span>
-      </div>
-      <div className="absolute top-12 left-1/2 rounded-md bg-[#ff3d8b] px-2 py-1 text-[10px] font-semibold text-white shadow">
-        Web Design
-      </div>
-      <div className="flex items-center gap-2">
-        <motion.div whileHover={{ scale: 1.1 }} className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-lg ring-1 ring-black/5">
-          <Type className="h-7 w-7 text-foreground" />
-        </motion.div>
-        <div className="h-20 w-20 rounded-2xl bg-gradient-to-br from-pink-400 via-purple-400 to-blue-400 shadow-lg" />
-        <motion.div whileHover={{ scale: 1.1 }} className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-lg ring-1 ring-black/5">
-          <div className="h-7 w-7 rounded-full border-4 border-[#2f7fff]" />
-        </motion.div>
-      </div>
-      <div className="absolute bottom-6 flex items-center gap-2">
-        <div className="flex gap-1 rounded-full bg-white px-2 py-1 shadow ring-1 ring-black/5">
-          {["#2f7fff", "#7c3aed", "#f59e0b", "#ef4444"].map((c) => (
-            <div key={c} className="h-3 w-3 rounded-full" style={{ background: c }} />
-          ))}
-        </div>
-        <div className="rounded-full bg-[#2f7fff] px-3 py-1 text-[10px] font-semibold text-white shadow">UI/UX Design</div>
-      </div>
-    </div>
-  );
-}
-
-function HostingArt() {
-  return (
-    <div className="absolute inset-0 flex items-center justify-center">
-      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 300 280" fill="none" preserveAspectRatio="none">
-        <path d="M0 140 L100 140 M200 140 L300 140 M150 0 L150 80 M150 200 L150 280" stroke="#b8cfff" strokeWidth="1" strokeDasharray="4 4" />
-      </svg>
-      <motion.div
-        animate={{ scale: [1, 1.08, 1] }}
-        transition={{ duration: 2.5, repeat: Infinity }}
-        className="relative flex h-28 w-28 items-center justify-center rounded-3xl bg-white shadow-2xl ring-1 ring-black/5"
-      >
-        <svg width="64" height="64" viewBox="0 0 24 24" fill="none">
-          <defs>
-            <linearGradient id="zapGrad" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%" stopColor="#7fb6ff" />
-              <stop offset="100%" stopColor="#2f7fff" />
-            </linearGradient>
-          </defs>
-          <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z" fill="url(#zapGrad)" stroke="url(#zapGrad)" strokeWidth="1" strokeLinejoin="round" />
-        </svg>
-      </motion.div>
-    </div>
-  );
-}
-
-function ServicesSection() {
-  return (
-    <section id="services" className="relative mx-auto mt-32 max-w-6xl px-6">
+    <section id="products" className="relative mx-auto mt-32 max-w-6xl px-6">
       <motion.div
         initial="hidden"
         whileInView="show"
@@ -399,15 +262,14 @@ function ServicesSection() {
           className="max-w-2xl text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold leading-[1.15] tracking-[-0.03em]"
           style={{ fontFamily: "'Space Grotesk', sans-serif" }}
         >
-          Not a generic agency. A studio with a{" "}
-          <span className="font-bold">contractual commitment</span> to performance.
+          Не типовые интеграторы. Команда, которая понимает ЖД изнутри.
         </motion.h2>
         <motion.a
           variants={fadeUp}
-          href="#book"
-          className="self-start rounded-xl bg-gradient-to-b from-[#4f96ff] to-[#2f7fff] px-5 py-2.5 text-[14px] font-medium text-white shadow-[0_10px_25px_-8px_rgba(47,127,255,0.6)] hover:opacity-95"
+          href="#contact"
+          className="self-start rounded-xl bg-[#3b6bc4] px-5 py-2.5 text-[14px] font-medium text-white shadow-[0_10px_25px_-8px_rgba(59,107,196,0.5)] hover:bg-[#2d5cb8]"
         >
-          Book a strategy call
+          Связаться
         </motion.a>
       </motion.div>
 
@@ -416,32 +278,261 @@ function ServicesSection() {
         whileInView="show"
         viewport={{ once: true, margin: "-50px" }}
         variants={stagger}
-        className="mt-10 grid gap-5 md:grid-cols-2"
+        className="mt-10 grid gap-5 md:grid-cols-3"
       >
-        <ServiceCard title="E-Commerce Systems" description="Keep files, briefs, and updates in one living workspace" art={<EcomArt />} />
-        <ServiceCard title="Enterprise SLA" description="Keep files, briefs, and updates in one living workspace" art={<SLAArt />} />
-      </motion.div>
-
-      <motion.div
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-50px" }}
-        variants={stagger}
-        className="mt-5 grid gap-5 md:grid-cols-3"
-      >
-        <ServiceCard title="Custom Development" description="Tailored systems engineered around your workflow" art={<DevArt />} />
-        <ServiceCard title="UI/UX Design" description="Keep files, briefs, and updates in one living workspace" art={<DesignArt />} />
-        <ServiceCard title="Lightning Fast Hosting" description="Skip the fluff—get the most important takeaways from any video in seconds." art={<HostingArt />} />
+        <ProductCard
+          title="MultiCode ОС"
+          description="Платформа для управления вагонным парком. Учет, маршрутизация, ремонт и интеграция с внешними системами."
+          features={[
+            "Управление вагонным парком",
+            "Автоматизация операций",
+            "Аналитика и отчетность",
+            "Интеграция с системами",
+          ]}
+          icon={Train}
+        />
+        <ProductCard
+          title="Multicode СТ"
+          description="Industrial IT-решение для цифровой трансформации станций. Полный операционный цикл от прибытия до отправления."
+          features={[
+            "Сокращение простоев на 50–70%",
+            "100% контроль парка",
+            "Мониторинг в реальном времени",
+            "Цифровая экосистема",
+          ]}
+          icon={Radio}
+        />
+        <ProductCard
+          title="Другие решения"
+          description="Индивидуальные IT-продукты для железнодорожной индустрии под задачи вашего бизнеса."
+          features={[
+            "Цифровизация станций",
+            "Системы безопасности",
+            "Аналитика на базе ИИ",
+            "Кастомная интеграция",
+          ]}
+          icon={Cpu}
+        />
       </motion.div>
     </section>
   );
 }
 
-function CEOSection() {
+function WorkSection() {
+  return (
+    <motion.section
+      id="work"
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, margin: "-100px" }}
+      variants={stagger}
+      className="relative mx-auto mt-20 grid max-w-6xl gap-6 px-6 md:grid-cols-3"
+    >
+      <motion.div variants={fadeUp}>
+        <CardShell
+          title="Управление парком"
+          description="Единый реестр вагонов, контейнеров и локомотивов с полной историей движения и ремонтов."
+        >
+          <div className="flex items-center justify-center gap-6">
+            <ProductIcon icon={Train} label="Вагоны" />
+            <ProductIcon icon={BarChart3} label="Аналитика" />
+            <ProductIcon icon={Globe} label="Маршруты" />
+          </div>
+        </CardShell>
+      </motion.div>
+      <motion.div variants={fadeUp}>
+        <CardShell
+          title="Цифровые станции"
+          description="Автоматизация прибытия, маневров, погрузки и отправления. Меньше простоев и ручного ввода."
+        >
+          <div className="flex items-center justify-center gap-6">
+            <ProductIcon icon={Radio} label="СТ" />
+            <ProductIcon icon={MapPin} label="Пути" />
+            <ProductIcon icon={Shield} label="Контроль" />
+          </div>
+        </CardShell>
+      </motion.div>
+      <motion.div variants={fadeUp}>
+        <CardShell
+          title="ИИ-аналитика"
+          description="Прогнозирование прибытия, выявление узких мест и оптимизация использования подвижного состава."
+        >
+          <div className="flex items-center justify-center gap-6">
+            <ProductIcon icon={Cpu} label="ИИ" />
+            <ProductIcon icon={BarChart3} label="Отчеты" />
+            <ProductIcon icon={Mail} label="Оповещения" />
+          </div>
+        </CardShell>
+      </motion.div>
+    </motion.section>
+  );
+}
+
+function StatsSection() {
+  const stats = [
+    { value: "50–70%", label: "Сокращение простоев" },
+    { value: "100%", label: "Видимость парка" },
+    { value: "24/7", label: "Мониторинг станций" },
+    { value: "10+", label: "Крупнейших операторов" },
+  ];
+  return (
+    <section className="relative mx-auto mt-32 max-w-6xl px-6">
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={stagger}
+        className="grid gap-6 rounded-3xl bg-foreground/[0.03] p-10 ring-1 ring-black/[0.04] md:grid-cols-4"
+      >
+        {stats.map((s) => (
+          <motion.div key={s.label} variants={fadeUp} className="text-center">
+            <div
+              className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-tight text-[#3b6bc4]"
+              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+            >
+              {s.value}
+            </div>
+            <div className="mt-1 text-[14px] text-foreground/60">{s.label}</div>
+          </motion.div>
+        ))}
+      </motion.div>
+    </section>
+  );
+}
+
+function GeographySection() {
+  return (
+    <section id="geography" className="relative mx-auto mt-32 max-w-6xl px-6">
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={stagger}
+        className="text-center"
+      >
+        <motion.h2
+          variants={fadeUp}
+          className="text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em]"
+          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+        >
+          Работаем по всему рынку СНГ
+        </motion.h2>
+        <motion.p variants={fadeUp} className="mt-3 text-[15px] text-foreground/60">
+          Решения для операторов в Казахстане, Узбекистане, Кыргызстане и других странах региона.
+        </motion.p>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+        className="mt-10 overflow-hidden rounded-3xl bg-white shadow-[0_10px_40px_-20px_rgba(15,30,60,0.12)] ring-1 ring-black/[0.04]"
+      >
+        <img
+          src={mapFrame}
+          alt="География присутствия Multicode в странах СНГ"
+          loading="lazy"
+          className="w-full"
+        />
+      </motion.div>
+    </section>
+  );
+}
+
+function ProcessSection() {
+  const steps = [
+    { n: "01", title: "Аудит", desc: "Изучаем процессы, данные и ограничения оператора.", img: processDiscovery },
+    { n: "02", title: "Проектирование", desc: "Проектируем архитектуру и интерфейсы под реальные задачи.", img: processDesign },
+    { n: "03", title: "Разработка", desc: "Ведем разработку итерациями с ежедневной демонстрацией.", img: processBuild },
+    { n: "04", title: "Внедрение", desc: "Запускаем пилот, обучаем персонал и сопровождаем 24/7.", img: processLaunch },
+  ];
+  return (
+    <section className="relative mx-auto mt-32 max-w-6xl px-6">
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={stagger}
+        className="text-center"
+      >
+        <motion.p
+          variants={fadeUp}
+          className="text-[13px] font-semibold uppercase tracking-[0.2em] text-[#3b6bc4]"
+        >
+          Наш процесс
+        </motion.p>
+        <motion.h2
+          variants={fadeUp}
+          className="mt-3 text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em]"
+          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+        >
+          От идеи до промышленной эксплуатации.
+        </motion.h2>
+      </motion.div>
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-50px" }}
+        variants={stagger}
+        className="relative mt-12 grid gap-5 md:grid-cols-4"
+      >
+        {steps.map((s, i) => (
+          <motion.div
+            key={s.n}
+            variants={fadeUp}
+            whileHover={{ y: -4 }}
+            className="relative overflow-hidden rounded-2xl bg-white p-6 shadow-[0_10px_40px_-20px_rgba(15,30,60,0.12)] ring-1 ring-black/[0.04]"
+          >
+            <div className="mb-5 -mx-6 -mt-6 aspect-[4/3] overflow-hidden bg-[#eef4ff]">
+              <img
+                src={s.img}
+                alt={s.title}
+                loading="lazy"
+                width={1024}
+                height={1024}
+                className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
+              />
+            </div>
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#4f7fd6] to-[#3b6bc4] text-[13px] font-bold text-white shadow-md">
+              {s.n}
+            </div>
+            <h3
+              className="mt-5 text-[18px] font-semibold tracking-tight"
+              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+            >
+              {s.title}
+            </h3>
+            <p className="mt-2 text-[14px] leading-relaxed text-foreground/55">{s.desc}</p>
+            {i < steps.length - 1 && (
+              <div className="absolute top-11 -right-3 hidden h-px w-6 bg-foreground/15 md:block" />
+            )}
+          </motion.div>
+        ))}
+      </motion.div>
+    </section>
+  );
+}
+
+function AboutSection() {
   const cards = [
-    { n: "01", title: "Szymon is on the kickoff call. Always", desc: "Not introduced halfway through. From day one — understanding your business, your users, your constraints.", tag: "From day one" },
-    { n: "02", title: "Every strategic decision goes through him.", desc: "Not introduced halfway through. From day one — understanding your business, your users, your constraints.", tag: "CEO sign-off required" },
-    { n: "03", title: "His name is on the contract", desc: "CEO involvement is a written contractual condition. If it doesn't happen, the terms are breached.", tag: "Contractually binding" },
+    {
+      n: "01",
+      title: "Специализация на ЖД",
+      desc: "Не адаптируем универсальные шаблоны. Строим решения под язык, регламенты и скорость железнодорожной отрасли.",
+      tag: "Отраслевой фокус",
+    },
+    {
+      n: "02",
+      title: "Промышленная надежность",
+      desc: "Работаем с крупнейшими операторами СНГ. SLA, 24/7 и контроль качества на каждом этапе.",
+      tag: "SLA 24/7",
+    },
+    {
+      n: "03",
+      title: "Собственная разработка",
+      desc: "Команда разработчиков, аналитиков и UX-дизайнеров внутри компании. Без аутсорса критичных компетенций.",
+      tag: "In-house",
+    },
   ];
   return (
     <section id="about" className="relative mx-auto mt-32 max-w-6xl px-6">
@@ -458,17 +549,22 @@ function CEOSection() {
             className="text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold leading-[1.15] tracking-[-0.03em]"
             style={{ fontFamily: "'Space Grotesk', sans-serif" }}
           >
-            CEO-led strategy. On every project.
+            Multicode — технологический партнер для ЖД-операторов.
           </motion.h2>
-          <motion.p variants={fadeUp} className="mt-4 text-[15px] leading-relaxed text-foreground/60">
-            Most agencies delegate strategy to a project manager after the contract is signed. At Invette,{" "}
-            <span className="font-semibold text-foreground">Szymon Til — founder and CEO — is personally involved in every project above 30,000 PLN.</span>{" "}
-            Not as a figurehead. On the calls. Reviewing the work. Accountable.
+          <motion.p
+            variants={fadeUp}
+            className="mt-4 text-[15px] leading-relaxed text-foreground/60"
+          >
+            Мы создаем IT-продукты, которые переводят управление вагонным парком и станциями на новый уровень: от
+            ручных таблиц и телефонных переговоров к единой цифровой платформе с прозрачной аналитикой.
           </motion.p>
         </div>
-        <motion.div variants={fadeUp} className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-[13px] shadow-sm ring-1 ring-black/[0.05]">
-          <span className="h-2 w-2 rounded-full bg-[#2f7fff]" />
-          CEO involvement is a contractual condition - to a sales promise
+        <motion.div
+          variants={fadeUp}
+          className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-[13px] shadow-sm ring-1 ring-black/[0.05]"
+        >
+          <span className="h-2 w-2 rounded-full bg-[#3b6bc4]" />
+          Работаем с 2019 года
         </motion.div>
       </motion.div>
 
@@ -486,12 +582,22 @@ function CEOSection() {
             whileHover={{ y: -4 }}
             className="rounded-3xl bg-white p-6 shadow-[0_10px_40px_-20px_rgba(15,30,60,0.12)] ring-1 ring-black/[0.04]"
           >
-            <div className="text-[18px] font-bold text-[#2f7fff]" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>{c.n}</div>
-            <h3 className="mt-3 text-[20px] font-semibold leading-tight tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>{c.title}</h3>
+            <div
+              className="text-[18px] font-bold text-[#3b6bc4]"
+              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+            >
+              {c.n}
+            </div>
+            <h3
+              className="mt-3 text-[20px] font-semibold leading-tight tracking-tight"
+              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+            >
+              {c.title}
+            </h3>
             <p className="mt-4 text-[14px] leading-relaxed text-foreground/55">{c.desc}</p>
             <div className="my-5 h-px bg-foreground/10" />
             <div className="flex items-center gap-2 text-[13px]">
-              <span className="flex h-5 w-5 items-center justify-center rounded bg-[#2f7fff]">
+              <span className="flex h-5 w-5 items-center justify-center rounded bg-[#3b6bc4]">
                 <Check className="h-3.5 w-3.5 text-white" strokeWidth={3} />
               </span>
               {c.tag}
@@ -503,222 +609,29 @@ function CEOSection() {
   );
 }
 
-function FAQSection() {
-  const faqs = [
-    { q: "How does the CEO-led model work in practice?", a: ["Szymon joins the kickoff call and stays accountable through delivery. Strategic decisions require his sign-off."] },
-    { q: "What does Lighthouse 90+ contractually guranteed mean?", a: [
-      "15 people — 8-9 senior designers, 3-4 developers, an AI engineer, a PM, and operations support. All work is done in-house with no outsourcing to third parties.",
-      "Every designer on the team has worked on funded startups, so they understand the pace and expectations.",
-      "We're structured to handle multiple projects simultaneously without spreading thin — you're not competing for attention with ten other clients.",
-    ] },
-    { q: "Which platforms do you specialise in?", a: ["Shopify, WooCommerce, Magento for e-commerce. Next.js, React, Node for custom builds."] },
-    { q: "How do I start with invette.dev", a: ["Book a strategy call. We'll review your goals, then send a scoped proposal within 48 hours."] },
-    { q: "What's included in the SLA package?", a: ["99.9% uptime guarantee, 24/7 monitoring, <1 hour response time on critical incidents."] },
-  ];
-  return (
-    <section id="book" className="relative mt-32">
-      <motion.div
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={stagger}
-        className="mx-auto max-w-6xl rounded-[2.5rem] bg-gradient-to-b from-[#d9e7ff] to-[#eaf1ff] px-6 py-20"
-      >
-        <motion.h2
-          variants={fadeUp}
-          className="text-center text-[clamp(2rem,4vw,3rem)] font-semibold tracking-[-0.03em]"
-          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-        >
-          Frequently Asked Questions
-        </motion.h2>
-        <motion.p variants={fadeUp} className="mx-auto mt-3 max-w-md text-center text-[15px] text-foreground/60">
-          Trusted by next-gen startups and established enterprises.
-        </motion.p>
-        <motion.div variants={fadeUp} className="mx-auto mt-10 max-w-2xl">
-          <Accordion type="single" collapsible defaultValue="item-1" className="space-y-3">
-            {faqs.map((f, i) => (
-              <AccordionItem
-                key={i}
-                value={`item-${i}`}
-                className="overflow-hidden rounded-2xl border-0 bg-white px-6 shadow-[0_4px_20px_-10px_rgba(15,30,60,0.1)] ring-1 ring-black/[0.03]"
-              >
-                <AccordionTrigger className="py-5 text-left text-[16px] font-semibold hover:no-underline" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-                  <span>
-                    <span className="text-foreground/40">0{i + 1}.</span>
-                    <span className="ml-2">{f.q}</span>
-                  </span>
-                </AccordionTrigger>
-                <AccordionContent className="space-y-3 pb-5 text-[14px] leading-relaxed text-foreground/60">
-                  {f.a.map((p, j) => (
-                    <p key={j}>{p}</p>
-                  ))}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </motion.div>
-      </motion.div>
-    </section>
-  );
-}
-
-function Footer() {
-  return (
-    <footer className="border-t border-black/[0.06] bg-background">
-      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-10 md:flex-row">
-        <a href="#top" className="text-[18px] font-semibold tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-          <span className="text-[#2f7fff]">in</span>
-          <span className="text-foreground">vette.dev</span>
-        </a>
-        <ul className="flex items-center gap-6 text-[14px] text-foreground/60">
-          <li><a href="#services" className="hover:text-foreground">Services</a></li>
-          <li><a href="#work" className="hover:text-foreground">Work</a></li>
-          <li><a href="#about" className="hover:text-foreground">About</a></li>
-          <li><a href="#book" className="hover:text-foreground">Contract</a></li>
-        </ul>
-        <p className="text-[13px] text-foreground/50">© 2026 invette.dev — All rights reserved.</p>
-      </div>
-    </footer>
-  );
-}
-
-/* ---------- Logo Marquee ---------- */
-function LogoMarquee() {
-  const logos = ["TechCrunch", "Forbes", "Wired", "Bloomberg", "Fast Company", "Inc.", "VentureBeat"];
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8, delay: 0.7 }}
-      className="relative mt-16 overflow-hidden"
-    >
-      <p className="mb-5 text-[12px] uppercase tracking-[0.2em] text-foreground/40">Trusted by teams at</p>
-      <div className="relative flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]">
-        <motion.div
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="flex shrink-0 items-center gap-14 pr-14"
-        >
-          {[...logos, ...logos].map((l, i) => (
-            <span
-              key={i}
-              className="text-[22px] font-semibold tracking-tight text-foreground/30"
-              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-            >
-              {l}
-            </span>
-          ))}
-        </motion.div>
-      </div>
-    </motion.div>
-  );
-}
-
-/* ---------- Stats Section ---------- */
-function StatsSection() {
-  const stats = [
-    { value: "120+", label: "Projects shipped" },
-    { value: "98%", label: "Client retention" },
-    { value: "1.2s", label: "Avg. load time" },
-    { value: "90+", label: "Lighthouse score" },
-  ];
-  return (
-    <section className="relative mx-auto mt-32 max-w-6xl px-6">
-      <motion.div
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={stagger}
-        className="grid gap-6 rounded-3xl bg-foreground/[0.03] p-10 ring-1 ring-black/[0.04] md:grid-cols-4"
-      >
-        {stats.map((s) => (
-          <motion.div key={s.label} variants={fadeUp} className="text-center">
-            <div className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-tight text-[#2f7fff]" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-              {s.value}
-            </div>
-            <div className="mt-1 text-[14px] text-foreground/60">{s.label}</div>
-          </motion.div>
-        ))}
-      </motion.div>
-    </section>
-  );
-}
-
-/* ---------- Process Section ---------- */
-function ProcessSection() {
-  const steps = [
-    { n: "01", title: "Discovery", desc: "Deep-dive into your business, users, and constraints. Output: written strategy doc.", img: processDiscovery },
-    { n: "02", title: "Design Sprint", desc: "Wireframes, prototypes, and visual direction reviewed weekly with the CEO.", img: processDesign },
-    { n: "03", title: "Build", desc: "In-house engineering with daily commits. You see progress in real time.", img: processBuild },
-    { n: "04", title: "Launch & SLA", desc: "Performance-tested ship, then ongoing 99.9% uptime guarantee.", img: processLaunch },
-  ];
-  return (
-    <section className="relative mx-auto mt-32 max-w-6xl px-6">
-      <motion.div
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={stagger}
-        className="text-center"
-      >
-        <motion.p variants={fadeUp} className="text-[13px] font-semibold uppercase tracking-[0.2em] text-[#2f7fff]">
-          Our Process
-        </motion.p>
-        <motion.h2
-          variants={fadeUp}
-          className="mt-3 text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em]"
-          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-        >
-          A clear path from idea to launch.
-        </motion.h2>
-      </motion.div>
-      <motion.div
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-50px" }}
-        variants={stagger}
-        className="relative mt-12 grid gap-5 md:grid-cols-4"
-      >
-        {steps.map((s, i) => (
-          <motion.div
-            key={s.n}
-            variants={fadeUp}
-            whileHover={{ y: -4 }}
-            className="relative overflow-hidden rounded-2xl bg-white p-6 shadow-[0_10px_40px_-20px_rgba(15,30,60,0.12)] ring-1 ring-black/[0.04]"
-          >
-            <div className="mb-5 -mx-6 -mt-6 aspect-[4/3] overflow-hidden bg-gradient-to-br from-[#eef4ff] to-[#dbe8ff]">
-              <img
-                src={s.img}
-                alt={s.title}
-                loading="lazy"
-                width={1024}
-                height={1024}
-                className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
-              />
-            </div>
-            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#4f96ff] to-[#2f7fff] text-[13px] font-bold text-white shadow-md">
-              {s.n}
-            </div>
-            <h3 className="mt-5 text-[18px] font-semibold tracking-tight" style={{ fontFamily: "'Space Grotesk', sans-serif" }}>
-              {s.title}
-            </h3>
-            <p className="mt-2 text-[14px] leading-relaxed text-foreground/55">{s.desc}</p>
-            {i < steps.length - 1 && (
-              <div className="absolute top-11 -right-3 hidden h-px w-6 bg-foreground/15 md:block" />
-            )}
-          </motion.div>
-        ))}
-      </motion.div>
-    </section>
-  );
-}
-
-/* ---------- Testimonials Section ---------- */
 function TestimonialsSection() {
   const items = [
-    { quote: "Invette didn't just build our store — they rebuilt our conversion funnel. Revenue is up 38% in 90 days.", name: "Marta Kowalski", role: "Founder, Lumio Skincare", avatar: avatar1 },
-    { quote: "Szymon was on every call. That's almost unheard of. The strategy work alone paid for the engagement.", name: "Daniel Reyes", role: "CTO, NovaPay", avatar: avatar2 },
-    { quote: "Lighthouse 90+ in the contract changed everything. No more debates about performance — it was just delivered.", name: "Priya Shah", role: "Head of Product, Halo", avatar: avatar3 },
+    {
+      quote:
+        "После внедрения MultiCode ОС мы перестали терять вагоны в учете. Видимость парка выросла до 100%, а простои сократились на треть.",
+      name: "Азамат Ергалиев",
+      role: "Директор по логистике, Qaztemirtrans",
+      avatar: avatar1,
+    },
+    {
+      quote:
+        "Multicode СТ заменил нам телефонные переговоры на диспетчерскую систему. Теперь станция работает как единый организм.",
+      name: "Данияр Сулейменов",
+      role: "Главный диспетчер, Eastcomtrans",
+      avatar: avatar2,
+    },
+    {
+      quote:
+        "Команда говорит на языке железной дороги. Не нужно объяснять, что такое маршрут, вагон-цистерна или простой на пути.",
+      name: "Петр Иванов",
+      role: "CTO, Tranco",
+      avatar: avatar3,
+    },
   ];
   return (
     <section className="relative mx-auto mt-32 max-w-6xl px-6">
@@ -734,7 +647,7 @@ function TestimonialsSection() {
           className="text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em]"
           style={{ fontFamily: "'Space Grotesk', sans-serif" }}
         >
-          Loved by founders who ship.
+          Доверие крупнейших операторов.
         </motion.h2>
       </motion.div>
       <motion.div
@@ -778,50 +691,241 @@ function TestimonialsSection() {
   );
 }
 
-/* ---------- Final CTA ---------- */
+function MediaSection() {
+  const items = [
+    { href: "https://digitalbusiness.kz", logo: mediaDigitalBusiness, alt: "DigitalBusiness.kz" },
+    { href: "https://forbes.kz", logo: mediaForbes, alt: "Forbes Kazakhstan" },
+    { href: "https://www.youtube.com", logo: mediaAtameken, alt: "Atameken Business" },
+  ];
+  return (
+    <section id="media" className="relative mx-auto mt-32 max-w-6xl px-6">
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={stagger}
+        className="text-center"
+      >
+        <motion.h2
+          variants={fadeUp}
+          className="text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em]"
+          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+        >
+          Медиа о нас
+        </motion.h2>
+      </motion.div>
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-50px" }}
+        variants={stagger}
+        className="mt-10 grid gap-5 md:grid-cols-3"
+      >
+        {items.map((item) => (
+          <motion.a
+            key={item.alt}
+            variants={fadeUp}
+            href={item.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex h-40 items-center justify-center rounded-3xl bg-white p-6 shadow-[0_10px_40px_-20px_rgba(15,30,60,0.12)] ring-1 ring-black/[0.04] transition hover:-translate-y-1"
+          >
+            <img src={item.logo} alt={item.alt} className="max-h-12 max-w-[80%] object-contain" />
+          </motion.a>
+        ))}
+      </motion.div>
+    </section>
+  );
+}
+
+function ClientsSection() {
+  const logos = [
+    { src: clientQaztemir, alt: "Qaztemirtrans" },
+    { src: clientUtyCargo, alt: "UTY Cargo" },
+    { src: clientKazzinc, alt: "Kazzinc" },
+    { src: clientTranco, alt: "Tranco" },
+    { src: clientAtasu, alt: "Atasu Group" },
+    { src: clientPmk, alt: "ПМК" },
+    { src: clientEastcom, alt: "Eastcomtrans" },
+    { src: clientArlantrans, alt: "Арлантранс" },
+    { src: clientAdy, alt: "ADY" },
+    { src: clientLogotransenergy, alt: "ЛогоТрансЭнерджи" },
+  ];
+  const doubled = [...logos, ...logos];
+  return (
+    <section id="clients" className="relative mx-auto mt-32 max-w-6xl px-6">
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={stagger}
+        className="text-center"
+      >
+        <motion.p
+          variants={fadeUp}
+          className="text-[13px] font-semibold uppercase tracking-[0.2em] text-[#3b6bc4]"
+        >
+          Нам доверяют
+        </motion.p>
+        <motion.h2
+          variants={fadeUp}
+          className="mt-3 text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em]"
+          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+        >
+          Крупнейшие операторы рынка СНГ.
+        </motion.h2>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.8 }}
+        className="relative mt-10 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_15%,black_85%,transparent)]"
+      >
+        <motion.div
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+          className="flex shrink-0 items-center gap-8 pr-8"
+        >
+          {doubled.map((l, i) => (
+            <div
+              key={i}
+              className="flex h-20 w-44 flex-shrink-0 items-center justify-center rounded-2xl bg-white p-4 shadow-sm ring-1 ring-black/[0.04]"
+            >
+              <img src={l.src} alt={l.alt} className="max-h-10 max-w-full object-contain" />
+            </div>
+          ))}
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}
+
+function FAQSection() {
+  const faqs = [
+    {
+      q: "Какие продукты предлагает Multicode?",
+      a: [
+        "MultiCode ОС — управление вагонным парком. Multicode СТ — цифровизация станций. Также разрабатываем индивидуальные решения под задачи заказчика.",
+      ],
+    },
+    {
+      q: "С какими операторами вы работаете?",
+      a: [
+        "Qaztemirtrans, UTY Cargo, Kazzinc, Tranco, Atasu Group, Eastcomtrans, ADY и другие крупные игроки рынка СНГ.",
+      ],
+    },
+    {
+      q: "Можно ли интегрировать с нашими системами?",
+      a: [
+        "Да. Мы предусматриваем интеграцию через API, EDI и прямой обмен файлами с существующими учетными и ERP-системами оператора.",
+      ],
+    },
+    {
+      q: "Как начать сотрудничество?",
+      a: [
+        "Оставьте заявку или свяжитесь с нами. Мы проведем аудит, подготовим коммерческое предложение и запустим пилотный проект.",
+      ],
+    },
+    {
+      q: "Есть ли поддержка после запуска?",
+      a: [
+        "Да. Мы предоставляем SLA, техническую поддержку 24/7, обновления и обучение персонала заказчика.",
+      ],
+    },
+  ];
+  return (
+    <section id="faq" className="relative mt-32">
+      <motion.div
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, margin: "-100px" }}
+        variants={stagger}
+        className="mx-auto max-w-6xl rounded-[2.5rem] bg-gradient-to-b from-[#d9e7ff] to-[#eaf1ff] px-6 py-20"
+      >
+        <motion.h2
+          variants={fadeUp}
+          className="text-center text-[clamp(2rem,4vw,3rem)] font-semibold tracking-[-0.03em]"
+          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+        >
+          Часто задаваемые вопросы
+        </motion.h2>
+        <motion.p
+          variants={fadeUp}
+          className="mx-auto mt-3 max-w-md text-center text-[15px] text-foreground/60"
+        >
+          Ответы на ключевые вопросы о продуктах и внедрении.
+        </motion.p>
+        <motion.div variants={fadeUp} className="mx-auto mt-10 max-w-2xl">
+          <Accordion type="single" collapsible defaultValue="item-1" className="space-y-3">
+            {faqs.map((f, i) => (
+              <AccordionItem
+                key={i}
+                value={`item-${i}`}
+                className="overflow-hidden rounded-2xl border-0 bg-white px-6 shadow-[0_4px_20px_-10px_rgba(15,30,60,0.1)] ring-1 ring-black/[0.03]"
+              >
+                <AccordionTrigger
+                  className="py-5 text-left text-[16px] font-semibold hover:no-underline"
+                  style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+                >
+                  <span>
+                    <span className="text-foreground/40">0{i + 1}.</span>
+                    <span className="ml-2">{f.q}</span>
+                  </span>
+                </AccordionTrigger>
+                <AccordionContent className="space-y-3 pb-5 text-[14px] leading-relaxed text-foreground/60">
+                  {f.a.map((p, j) => (
+                    <p key={j}>{p}</p>
+                  ))}
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}
+
 function CTASection() {
   return (
-    <section className="relative mx-auto mt-32 max-w-6xl px-6">
+    <section id="contact" className="relative mx-auto mt-32 max-w-6xl px-6">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="relative overflow-hidden rounded-[2.5rem] bg-[linear-gradient(135deg,#f5f8ff_0%,#e8efff_45%,#dce8ff_75%,#e9e2ff_100%)] px-8 py-20 text-center ring-1 ring-[#2f7fff]/10"
+        className="relative overflow-hidden rounded-[2.5rem] bg-[#3b6bc4] px-8 py-20 text-center"
       >
-        <div className="pointer-events-none absolute inset-0" style={{ backgroundImage: "radial-gradient(ellipse at 15% 0%, rgba(124,92,255,0.18), transparent 55%), radial-gradient(ellipse at 85% 100%, rgba(47,127,255,0.22), transparent 55%)" }} />
-        <div className="pointer-events-none absolute inset-0 opacity-[0.4]" style={{ backgroundImage: "radial-gradient(circle at 1px 1px, rgba(47,127,255,0.18) 1px, transparent 0)", backgroundSize: "24px 24px" }} />
-        <motion.div
-          animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 4, repeat: Infinity }}
-          className="pointer-events-none absolute top-10 left-10 h-20 w-20 rounded-2xl bg-white/60 ring-1 ring-[#2f7fff]/15 backdrop-blur"
-        />
-        <motion.div
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 5, repeat: Infinity }}
-          className="pointer-events-none absolute bottom-10 right-10 h-24 w-24 rounded-full bg-white/60 ring-1 ring-[#2f7fff]/15 backdrop-blur"
+        <div
+          className="pointer-events-none absolute inset-0 opacity-20"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.25) 1px, transparent 0)",
+            backgroundSize: "24px 24px",
+          }}
         />
         <h2
-          className="relative text-[clamp(2rem,4.5vw,3.5rem)] font-bold leading-[1.05] tracking-[-0.03em] text-[#0a1530]"
+          className="relative text-[clamp(2rem,4.5vw,3.5rem)] font-bold leading-[1.05] tracking-[-0.03em] text-white"
           style={{ fontFamily: "'Space Grotesk', sans-serif" }}
         >
-          Ready to build something that ships?
+          Переведите управление парком на новый уровень.
         </h2>
-        <p className="relative mx-auto mt-5 max-w-xl text-[16px] leading-relaxed text-[#0a1530]/65">
-          Book a 30-minute strategy call with Szymon. No pitch — just a clear assessment of what's possible.
+        <p className="relative mx-auto mt-5 max-w-xl text-[16px] leading-relaxed text-white/75">
+          Свяжитесь с нами по любым вопросам. Менеджер поможет выбрать решение и подготовит коммерческое предложение.
         </p>
         <div className="relative mt-9 flex flex-wrap items-center justify-center gap-3">
           <a
-            href="#book"
-            className="rounded-xl bg-[#0a1530] px-7 py-3.5 text-[15px] font-semibold text-white shadow-[0_10px_30px_-10px_rgba(10,21,48,0.5)] transition-transform hover:-translate-y-0.5"
+            href="mailto:info@multicode.tech"
+            className="rounded-xl bg-white px-7 py-3.5 text-[15px] font-semibold text-[#3b6bc4] shadow-[0_10px_30px_-10px_rgba(10,21,48,0.3)] transition-transform hover:-translate-y-0.5"
           >
-            Book a strategy call
+            info@multicode.tech
           </a>
           <a
-            href="#services"
-            className="rounded-xl bg-white/70 px-7 py-3.5 text-[15px] font-semibold text-[#0a1530] ring-1 ring-[#0a1530]/10 backdrop-blur hover:bg-white"
+            href="#products"
+            className="rounded-xl border border-white/30 bg-white/10 px-7 py-3.5 text-[15px] font-semibold text-white backdrop-blur hover:bg-white/20"
           >
-            See services
+            Наши продукты
           </a>
         </div>
       </motion.div>
@@ -829,104 +933,80 @@ function CTASection() {
   );
 }
 
+function Footer() {
+  return (
+    <footer className="mt-24 border-t border-black/[0.06] bg-background">
+      <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-10 md:flex-row">
+        <a href="#top" className="flex items-center gap-2">
+          <img src={logo} alt="Multicode" className="h-5 w-auto brightness-0" />
+        </a>
+        <ul className="flex items-center gap-6 text-[14px] text-foreground/60">
+          <li>
+            <a href="#products" className="hover:text-foreground">
+              Продукты
+            </a>
+          </li>
+          <li>
+            <a href="#clients" className="hover:text-foreground">
+              Клиенты
+            </a>
+          </li>
+          <li>
+            <a href="#about" className="hover:text-foreground">
+              О компании
+            </a>
+          </li>
+          <li>
+            <a href="#contact" className="hover:text-foreground">
+              Контакты
+            </a>
+          </li>
+        </ul>
+        <p className="text-[13px] text-foreground/50">© 2026 Multicode — все права защищены.</p>
+      </div>
+    </footer>
+  );
+}
+
+function Marquee() {
+  const words = ["Надёжность", "Скорость", "Масштаб", "Безопасность", "Аналитика", "Автоматизация"];
+  const row = (
+    <div className="flex items-center gap-12 px-6 font-serif-hero text-3xl md:text-4xl whitespace-nowrap text-[#6F6F6F]">
+        {words.map((w, i) => (
+        <>
+          <span key={`w-${i}`}>{w}</span>
+          <span key={`d-${i}`} className="text-black">✦</span>
+        </>
+      ))}
+    </div>
+  );
+  return (
+    <div className="relative z-10 border-y border-black/10 py-8 overflow-hidden bg-white">
+      <div className="flex marquee-track w-max">
+        {row}
+        {row}
+      </div>
+    </div>
+  );
+}
+
 function Index() {
+  const scrolled = useHeroScrolled();
   return (
     <div id="top" className="relative min-h-screen overflow-hidden bg-background">
-      <Nav />
-
-      <main className="relative pt-40 pb-24">
-        {/* radial glow */}
-        <div className="hero-glow pointer-events-none absolute inset-x-0 top-32 h-[700px]" />
-
-        <section className="relative mx-auto max-w-6xl px-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-1.5 text-[14px] shadow-sm ring-1 ring-black/[0.04]"
-          >
-            <span className="font-medium">5.0 Rating</span>
-            <Star className="h-4 w-4 text-[#00b67a]" fill="#00b67a" />
-            <span className="text-foreground/80">Trustpilot</span>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
-            className="mx-auto mt-7 max-w-4xl text-[clamp(2.5rem,6vw,4.75rem)] font-bold leading-[1.05] tracking-[-0.04em] text-foreground"
-            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-          >
-            Digital Products build to a
-            <br />
-            Higher<HeroIcon />Standard
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="mx-auto mt-7 max-w-2xl text-[17px] leading-relaxed text-foreground/55"
-          >
-            Strategy, UX research, and engineering — with Lighthouse 90+ written into every contract as an acceptance criterion
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.45 }}
-            className="mt-10 flex items-center justify-center gap-3"
-          >
-            <a
-              href="#book"
-              className="rounded-xl bg-gradient-to-b from-[#4f96ff] to-[#2f7fff] px-6 py-3 text-[15px] font-medium text-white shadow-[0_10px_25px_-8px_rgba(47,127,255,0.6)] hover:opacity-95 transition-transform hover:-translate-y-0.5"
-            >
-              Book a strategy call
-            </a>
-            <a
-              href="#work"
-              className="rounded-xl bg-white px-6 py-3 text-[15px] font-medium text-foreground shadow-sm ring-1 ring-black/[0.06] hover:bg-white/80 transition-transform hover:-translate-y-0.5"
-            >
-              See Our Work
-            </a>
-          </motion.div>
-
-          <LogoMarquee />
-        </section>
-
-        <motion.section
-          id="work"
-          initial="hidden"
-          whileInView="show"
-          viewport={{ once: true, margin: "-100px" }}
-          variants={stagger}
-          className="relative mx-auto mt-20 grid max-w-6xl gap-6 px-6 md:grid-cols-3"
-        >
-          <CardShell
-            title="E-Commerce"
-            description="Made to help online stores look trusted and easy to buy from. Clear design helps customers decide faster"
-          >
-            <ECommerceArt />
-          </CardShell>
-          <CardShell
-            title="Pre-Speed Startup"
-            description="Show your idea, product, and progress in a simple and clear way. Help investors understand your startup quickly"
-          >
-            <StartupArt />
-          </CardShell>
-          <CardShell
-            title="B2B"
-            description="Build trust with a clean and professional website. Make your business look reliable from the first visit"
-          >
-            <B2BArt />
-          </CardShell>
-        </motion.section>
-
-        <ServicesSection />
+      <Nav scrolled={scrolled} />
+      <Hero />
+      <Marquee />
+      <main className="relative pb-24">
+        <WorkSection />
+        <ProductsSection />
         <StatsSection />
+        <GeographySection />
         <ProcessSection />
-        <CEOSection />
+        <AboutSection />
+        <ClientsSection />
         <TestimonialsSection />
+        <MediaSection />
         <FAQSection />
         <CTASection />
       </main>
