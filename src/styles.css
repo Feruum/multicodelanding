@@ -164,16 +164,14 @@ section[id] {
   scroll-margin-top: 100px;
 }
 
-/* Hide native scrollbar on desktop so the custom train scrollbar is the only one */
-@media (min-width: 768px) {
-  html {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
+/* Hide native scrollbar so the custom train scrollbar is the only one */
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
 
-  html::-webkit-scrollbar {
-    display: none;
-  }
+html::-webkit-scrollbar {
+  display: none;
 }
 
 /* Hero serif font (Aethera-style) */

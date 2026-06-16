@@ -10,14 +10,17 @@ export function TrainScrollbar() {
   const [scrollHeight, setScrollHeight] = useState(0);
   const [clientHeight, setClientHeight] = useState(0);
   const [scrollTop, setScrollTop] = useState(0);
+  const [inHero, setInHero] = useState(true);
   const trackRef = useRef<HTMLDivElement>(null);
   const draggingRef = useRef(false);
 
   const update = useCallback(() => {
     const doc = document.documentElement;
+    const hero = document.getElementById("top");
     setScrollHeight(doc.scrollHeight);
     setClientHeight(window.innerHeight);
     setScrollTop(doc.scrollTop);
+    setInHero(hero ? doc.scrollTop < hero.offsetTop + hero.offsetHeight : false);
   }, []);
 
   useEffect(() => {
@@ -72,11 +75,37 @@ export function TrainScrollbar() {
     window.addEventListener("mouseup", handleMouseUp);
   };
 
-  // Hide on pages that are not scrollable
-  if (scrollHeight <= clientHeight) return null;
+  const handleThumbTouchStart = (e: React.TouchEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    draggingRef.current = true;
+    const startY = e.touches[0].clientY;
+    const startScroll = window.scrollY;
+
+    const handleTouchMove = (ev: TouchEvent) => {
+      if (!draggingRef.current) return;
+      const deltaY = ev.touches[0].clientY - startY;
+      const ratio = deltaY / trackLength;
+      window.scrollTo({
+        top: Math.max(0, Math.min(maxScroll, startScroll + ratio * maxScroll)),
+      });
+    };
+
+    const handleTouchEnd = () => {
+      draggingRef.current = false;
+      window.removeEventListener("touchmove", handleTouchMove);
+      window.removeEventListener("touchend", handleTouchEnd);
+    };
+
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+    window.addEventListener("touchend", handleTouchEnd);
+  };
+
+  // Hide on pages that are not scrollable or while inside the hero section
+  if (scrollHeight <= clientHeight || inHero) return null;
 
   return (
-    <div className="fixed inset-y-5 right-0 z-[100] hidden w-3 md:flex md:flex-col">
+    <div className="fixed inset-y-5 right-0 z-[100] flex w-3 flex-col">
       {/* Railway track */}
       <div
         className="pointer-events-none absolute inset-y-0 right-0 w-3 overflow-hidden rounded-full"
@@ -101,6 +130,7 @@ export function TrainScrollbar() {
         className="absolute right-0 w-3 cursor-grab active:cursor-grabbing transition-transform duration-75 hover:scale-110"
         style={{ top: thumbTop, height: THUMB_HEIGHT }}
         onMouseDown={handleThumbMouseDown}
+        onTouchStart={handleThumbTouchStart}
         aria-hidden="true"
       >
         <img
