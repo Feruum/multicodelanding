@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import { Check, Train, Radio, Cpu } from "lucide-react";
+import { Check, Train, Radio, Cpu, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Hero } from "@/components/hero";
 import {
@@ -32,27 +32,6 @@ import clientEastcom from "@/assets/client-eastcom.png";
 import clientArlantrans from "@/assets/client-arlantrans.png";
 import clientAdy from "@/assets/client-ady.png";
 import clientLogotransenergy from "@/assets/client-logotransenergy.png";
-
-declare module "*.png" {
-  const src: string;
-  export default src;
-}
-declare module "*.jpg" {
-  const src: string;
-  export default src;
-}
-declare module "*.jpeg" {
-  const src: string;
-  export default src;
-}
-declare module "*.svg" {
-  const src: string;
-  export default src;
-}
-declare module "*.webp" {
-  const src: string;
-  export default src;
-}
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -171,17 +150,19 @@ function ProductCard({
   description,
   features,
   icon: Icon,
+  to,
 }: {
   title: string;
   description: string;
   features: string[];
   icon: React.ElementType;
+  to?: string;
 }) {
-  return (
-    <motion.div
-      variants={fadeUp}
-      className="rounded-3xl bg-white p-6 shadow-[0_10px_40px_-20px_rgba(15,30,60,0.12)] ring-1 ring-black/[0.04]"
-    >
+  const cardClass =
+    "group block rounded-3xl bg-white p-6 shadow-[0_10px_40px_-20px_rgba(15,30,60,0.12)] ring-1 ring-black/[0.04] transition hover:-translate-y-0.5 hover:shadow-[0_15px_50px_-20px_rgba(15,30,60,0.15)]";
+
+  const inner = (
+    <>
       <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#3b6bc4]/10 text-[#3b6bc4]">
         <Icon className="h-7 w-7" />
       </div>
@@ -197,13 +178,35 @@ function ProductCard({
           </li>
         ))}
       </ul>
+      {to && (
+        <span className="mt-6 flex items-center gap-1.5 text-[14px] font-semibold text-[#3b6bc4]">
+          Подробнее
+          <ArrowRight className="h-4 w-4 transition group-hover:translate-x-1" />
+        </span>
+      )}
+    </>
+  );
+
+  if (to) {
+    return (
+      <motion.div variants={fadeUp}>
+        <Link to={to} className={cardClass}>
+          {inner}
+        </Link>
+      </motion.div>
+    );
+  }
+
+  return (
+    <motion.div variants={fadeUp} className={cardClass}>
+      {inner}
     </motion.div>
   );
 }
 
 function ProductsSection() {
   return (
-    <section id="products" className="relative mx-auto mt-32 max-w-6xl px-6">
+    <section id="products" className="relative mx-auto mt-20 md:mt-32 max-w-6xl px-6">
       <motion.div
         initial="hidden"
         whileInView="show"
@@ -243,6 +246,7 @@ function ProductsSection() {
             "Интеграция с системами",
           ]}
           icon={Train}
+          to="/oc"
         />
         <ProductCard
           title="Multicode СТ"
@@ -254,6 +258,7 @@ function ProductsSection() {
             "Цифровая экосистема",
           ]}
           icon={Radio}
+          to="/ct"
         />
         <ProductCard
           title="Другие решения"
@@ -342,8 +347,8 @@ function StatsSection() {
     { value: "24/7", label: "техническая поддержка по SLA" },
   ];
   return (
-    <section className="relative mx-auto mt-32 max-w-6xl px-6">
-      <div className="grid gap-10 rounded-3xl bg-foreground/[0.03] p-10 ring-1 ring-black/[0.04] md:grid-cols-12 md:gap-16">
+    <section className="relative mx-auto mt-20 md:mt-32 max-w-6xl px-6">
+      <div className="grid gap-8 rounded-3xl bg-foreground/[0.03] p-6 ring-1 ring-black/[0.04] md:grid-cols-12 md:gap-16 md:p-10">
         <motion.div
           initial="hidden"
           whileInView="show"
@@ -382,7 +387,7 @@ function StatsSection() {
 
 function GeographySection() {
   return (
-    <section id="geography" className="relative mx-auto mt-32 max-w-6xl px-6">
+    <section id="geography" className="relative mx-auto mt-20 md:mt-32 max-w-6xl px-6">
       <motion.div
         initial="hidden"
         whileInView="show"
@@ -445,7 +450,7 @@ function ProcessSection() {
     },
   ];
   return (
-    <section className="relative mx-auto mt-32 max-w-6xl px-6">
+    <section className="relative mx-auto mt-20 md:mt-32 max-w-6xl px-6">
       <motion.div
         initial="hidden"
         whileInView="show"
@@ -515,7 +520,7 @@ function AboutSection() {
     },
   ];
   return (
-    <section id="about" className="relative mx-auto mt-32 max-w-6xl px-6">
+    <section id="about" className="relative mx-auto mt-20 md:mt-32 max-w-6xl px-6">
       <motion.div
         initial="hidden"
         whileInView="show"
@@ -604,7 +609,7 @@ function TestimonialsSection() {
     },
   ];
   return (
-    <section className="relative mx-auto mt-32 max-w-6xl px-6">
+    <section className="relative mx-auto mt-20 md:mt-32 max-w-6xl px-6">
       <div className="grid gap-10 md:grid-cols-12 md:gap-16">
         <motion.div
           initial="hidden"
@@ -671,7 +676,7 @@ function MediaSection() {
     { href: "https://www.youtube.com", logo: mediaAtameken, alt: "Atameken Business" },
   ];
   return (
-    <section id="media" className="relative mx-auto mt-32 max-w-6xl px-6">
+    <section id="media" className="relative mx-auto mt-20 md:mt-32 max-w-6xl px-6">
       <motion.div
         initial="hidden"
         whileInView="show"
@@ -725,7 +730,7 @@ function ClientsSection() {
   ];
   const doubled = [...logos, ...logos];
   return (
-    <section id="clients" className="relative mx-auto mt-32 max-w-6xl px-6">
+    <section id="clients" className="relative mx-auto mt-20 md:mt-32 max-w-6xl px-6">
       <motion.div
         initial="hidden"
         whileInView="show"
@@ -749,14 +754,18 @@ function ClientsSection() {
         <motion.div
           animate={{ x: ["0%", "-50%"] }}
           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-          className="flex shrink-0 items-center gap-8 pr-8"
+          className="flex shrink-0 items-center gap-4 pr-4 sm:gap-8 sm:pr-8"
         >
           {doubled.map((l, i) => (
             <div
               key={i}
-              className="flex h-20 w-44 flex-shrink-0 items-center justify-center rounded-2xl bg-white p-4 shadow-sm ring-1 ring-black/[0.04]"
+              className="flex h-16 w-36 flex-shrink-0 items-center justify-center rounded-2xl bg-white p-3 shadow-sm ring-1 ring-black/[0.04] sm:h-20 sm:w-44 sm:p-4"
             >
-              <img src={l.src} alt={l.alt} className="max-h-10 max-w-full object-contain" />
+              <img
+                src={l.src}
+                alt={l.alt}
+                className="max-h-8 max-w-full object-contain sm:max-h-10"
+              />
             </div>
           ))}
         </motion.div>
@@ -799,13 +808,13 @@ function FAQSection() {
     },
   ];
   return (
-    <section id="faq" className="relative mt-32">
+    <section id="faq" className="relative mt-20 md:mt-32">
       <motion.div
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-100px" }}
         variants={stagger}
-        className="mx-auto max-w-6xl rounded-[2.5rem] bg-gradient-to-b from-[#d9e7ff] to-[#eaf1ff] px-6 py-20"
+        className="mx-auto max-w-6xl rounded-[2.5rem] bg-gradient-to-b from-[#d9e7ff] to-[#eaf1ff] px-6 py-12 md:py-20"
       >
         <motion.h2
           variants={fadeUp}
@@ -846,13 +855,13 @@ function FAQSection() {
 
 function CTASection() {
   return (
-    <section id="contact" className="relative mx-auto mt-32 max-w-6xl px-6">
+    <section id="contact" className="relative mx-auto mt-20 md:mt-32 max-w-6xl px-6">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-100px" }}
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        className="relative overflow-hidden rounded-[2.5rem] bg-[#3b6bc4] px-8 py-20 text-center"
+        className="relative overflow-hidden rounded-[2.5rem] bg-[#3b6bc4] px-6 py-12 text-center md:px-8 md:py-20"
       >
         <h2 className="relative text-[clamp(2rem,4.5vw,3.5rem)] font-bold leading-[1.05] tracking-[-0.03em] text-white font-display">
           Переведите управление парком на новый уровень.
@@ -882,7 +891,7 @@ function CTASection() {
 
 function Footer() {
   return (
-    <footer className="mt-24 border-t border-black/[0.06] bg-background">
+    <footer className="mt-16 border-t border-black/[0.06] bg-background md:mt-24">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-6 py-10 md:flex-row">
         <a href="#top" className="flex items-center gap-2">
           <img src={logo} alt="Multicode" className="h-5 w-auto brightness-0" />
@@ -918,7 +927,7 @@ function Footer() {
 function Index() {
   const scrolled = useHeroScrolled();
   return (
-    <div id="top" className="relative min-h-screen overflow-hidden bg-background">
+    <div className="relative min-h-screen overflow-x-hidden bg-background">
       <Nav scrolled={scrolled} />
       <Hero />
       <main className="relative pb-24">

@@ -2,11 +2,6 @@ import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import heroVideo from "@/assets/hero.mp4";
 
-declare module "*.mp4" {
-  const src: string;
-  export default src;
-}
-
 const serif = "font-serif-hero";
 
 /* ---------- Full-screen railway video with fade loop ---------- */
