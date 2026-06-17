@@ -93,7 +93,9 @@ export function Hero() {
 
       {/* subtle vignette / overlay for readability */}
       <div className="absolute inset-0 z-[1] bg-gradient-to-b from-black/30 via-black/40 to-black/70" />
-      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[3] h-40 bg-gradient-to-b from-transparent to-[var(--background)]" />
+
+      {/* cinematic dissolve into the page — tall, gradual, not a white strip */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-[280px] bg-gradient-to-b from-transparent via-black/40 to-[var(--background)]" />
 
       {/* Center content */}
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 py-24 text-center">

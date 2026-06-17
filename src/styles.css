@@ -188,15 +188,6 @@ html::-webkit-scrollbar {
   animation: drift 9s ease-in-out infinite;
 }
 
-/* Infinite marquee track */
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-.marquee-track {
-  animation: marquee 38s linear infinite;
-}
-
 video::-webkit-media-controls {
   display: none !important;
 }

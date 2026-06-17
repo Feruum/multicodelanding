@@ -968,35 +968,12 @@ function Footer() {
   );
 }
 
-function Marquee() {
-  const words = ["Надёжность", "Скорость", "Масштаб", "Безопасность", "Аналитика", "Автоматизация"];
-  const row = (
-    <div className="flex items-center gap-12 px-6 font-serif-hero text-3xl md:text-4xl whitespace-nowrap text-[#6F6F6F]">
-        {words.map((w, i) => (
-        <>
-          <span key={`w-${i}`}>{w}</span>
-          <span key={`d-${i}`} className="text-black">✦</span>
-        </>
-      ))}
-    </div>
-  );
-  return (
-    <div className="relative z-10 border-y border-black/10 py-8 overflow-hidden bg-white">
-      <div className="flex marquee-track w-max">
-        {row}
-        {row}
-      </div>
-    </div>
-  );
-}
-
 function Index() {
   const scrolled = useHeroScrolled();
   return (
     <div id="top" className="relative min-h-screen overflow-hidden bg-background">
       <Nav scrolled={scrolled} />
       <Hero />
-      <Marquee />
       <main className="relative pb-24">
         <WorkSection />
         <ProductsSection />
