@@ -1,19 +1,7 @@
 import { useEffect, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "framer-motion";
-import {
-  Star,
-  Check,
-  Train,
-  MapPin,
-  BarChart3,
-  Shield,
-  Radio,
-  Cpu,
-  Globe,
-  Mail,
-  ArrowRight,
-} from "lucide-react";
+import { Check, Train, Radio, Cpu } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Hero } from "@/components/hero";
 import {
@@ -78,7 +66,8 @@ export const Route = createFileRoute("/")({
       { property: "og:title", content: "Multicode — Digital Railway Solutions" },
       {
         property: "og:description",
-        content: "IT-решения для ЖД-операторов: управление парком, цифровизация станций, аналитика.",
+        content:
+          "IT-решения для ЖД-операторов: управление парком, цифровизация станций, аналитика.",
       },
     ],
   }),
@@ -121,10 +110,7 @@ function Nav({ scrolled }: { scrolled: boolean }) {
           <img
             src={logo}
             alt="Multicode"
-            className={cn(
-              "h-6 w-auto brightness-0 transition",
-              scrolled ? "" : "invert",
-            )}
+            className={cn("h-6 w-auto brightness-0 transition", scrolled ? "" : "invert")}
           />
         </a>
         <ul
@@ -156,33 +142,10 @@ function Nav({ scrolled }: { scrolled: boolean }) {
               : "bg-white text-black hover:bg-white/90",
           )}
         >
-          Связаться
+          Контакты
         </a>
       </nav>
     </header>
-  );
-}
-
-function CardShell({
-  title,
-  description,
-  children,
-}: {
-  title: string;
-  description: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="rounded-3xl bg-gradient-to-b from-white to-[#e6efff] p-6 shadow-[0_10px_40px_-15px_rgba(59,107,196,0.25)] ring-1 ring-white/60">
-      <div className="h-[260px] flex items-center justify-center">{children}</div>
-      <h3
-        className="mt-2 text-[22px] font-semibold tracking-tight"
-        style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-      >
-        {title}
-      </h3>
-      <p className="mt-3 text-[15px] leading-relaxed text-foreground/60">{description}</p>
-    </div>
   );
 }
 
@@ -190,21 +153,18 @@ const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   show: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const } },
 };
+const slideIn = {
+  hidden: { opacity: 0, x: -30 },
+  show: { opacity: 1, x: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as const } },
+};
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.96 },
+  show: { opacity: 1, scale: 1, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] as const } },
+};
 const stagger = {
   hidden: {},
   show: { transition: { staggerChildren: 0.12 } },
 };
-
-function ProductIcon({ icon: Icon, label }: { icon: React.ElementType; label: string }) {
-  return (
-    <div className="flex flex-col items-center gap-2">
-      <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white shadow-md ring-1 ring-[#dce7ff]">
-        <Icon className="h-8 w-8 text-[#3b6bc4]" />
-      </div>
-      <span className="text-[12px] font-semibold text-foreground/60">{label}</span>
-    </div>
-  );
-}
 
 function ProductCard({
   title,
@@ -220,18 +180,12 @@ function ProductCard({
   return (
     <motion.div
       variants={fadeUp}
-      whileHover={{ y: -4 }}
       className="rounded-3xl bg-white p-6 shadow-[0_10px_40px_-20px_rgba(15,30,60,0.12)] ring-1 ring-black/[0.04]"
     >
       <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#3b6bc4]/10 text-[#3b6bc4]">
         <Icon className="h-7 w-7" />
       </div>
-      <h3
-        className="mt-5 text-[22px] font-semibold tracking-tight"
-        style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-      >
-        {title}
-      </h3>
+      <h3 className="mt-5 text-[22px] font-semibold tracking-tight font-display">{title}</h3>
       <p className="mt-2 text-[15px] leading-relaxed text-foreground/55">{description}</p>
       <ul className="mt-5 space-y-2">
         {features.map((f) => (
@@ -259,8 +213,7 @@ function ProductsSection() {
       >
         <motion.h2
           variants={fadeUp}
-          className="max-w-2xl text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold leading-[1.15] tracking-[-0.03em]"
-          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+          className="max-w-2xl text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold leading-[1.15] tracking-[-0.03em] font-display"
         >
           Не типовые интеграторы. Команда, которая понимает ЖД изнутри.
         </motion.h2>
@@ -269,7 +222,7 @@ function ProductsSection() {
           href="#contact"
           className="self-start rounded-xl bg-[#3b6bc4] px-5 py-2.5 text-[14px] font-medium text-white shadow-[0_10px_25px_-8px_rgba(59,107,196,0.5)] hover:bg-[#2d5cb8]"
         >
-          Связаться
+          Обсудить проект
         </motion.a>
       </motion.div>
 
@@ -319,83 +272,110 @@ function ProductsSection() {
 }
 
 function WorkSection() {
+  const capabilities = [
+    {
+      icon: Train,
+      title: "Управление парком",
+      desc: "Единый реестр вагонов, контейнеров и локомотивов с полной историей движения и ремонтов.",
+    },
+    {
+      icon: Radio,
+      title: "Цифровые станции",
+      desc: "Автоматизация прибытия, маневров, погрузки и отправления. Меньше простоев и ручного ввода.",
+    },
+    {
+      icon: Cpu,
+      title: "ИИ-аналитика",
+      desc: "Прогнозирование прибытия, выявление узких мест и оптимизация использования подвижного состава.",
+    },
+  ];
   return (
-    <motion.section
-      id="work"
-      initial="hidden"
-      whileInView="show"
-      viewport={{ once: true, margin: "-100px" }}
-      variants={stagger}
-      className="relative mx-auto mt-20 grid max-w-6xl gap-6 px-6 md:grid-cols-3"
-    >
-      <motion.div variants={fadeUp}>
-        <CardShell
-          title="Управление парком"
-          description="Единый реестр вагонов, контейнеров и локомотивов с полной историей движения и ремонтов."
+    <section id="work" className="relative mx-auto mt-20 max-w-6xl px-6">
+      <div className="grid gap-10 md:grid-cols-12 md:gap-16">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={slideIn}
+          className="md:col-span-5"
         >
-          <div className="flex items-center justify-center gap-6">
-            <ProductIcon icon={Train} label="Вагоны" />
-            <ProductIcon icon={BarChart3} label="Аналитика" />
-            <ProductIcon icon={Globe} label="Маршруты" />
-          </div>
-        </CardShell>
-      </motion.div>
-      <motion.div variants={fadeUp}>
-        <CardShell
-          title="Цифровые станции"
-          description="Автоматизация прибытия, маневров, погрузки и отправления. Меньше простоев и ручного ввода."
-        >
-          <div className="flex items-center justify-center gap-6">
-            <ProductIcon icon={Radio} label="СТ" />
-            <ProductIcon icon={MapPin} label="Пути" />
-            <ProductIcon icon={Shield} label="Контроль" />
-          </div>
-        </CardShell>
-      </motion.div>
-      <motion.div variants={fadeUp}>
-        <CardShell
-          title="ИИ-аналитика"
-          description="Прогнозирование прибытия, выявление узких мест и оптимизация использования подвижного состава."
-        >
-          <div className="flex items-center justify-center gap-6">
-            <ProductIcon icon={Cpu} label="ИИ" />
-            <ProductIcon icon={BarChart3} label="Отчеты" />
-            <ProductIcon icon={Mail} label="Оповещения" />
-          </div>
-        </CardShell>
-      </motion.div>
-    </motion.section>
+          <h2 className="text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold leading-[1.15] tracking-[-0.03em] font-display">
+            Что мы делаем
+          </h2>
+          <p className="mt-4 text-[15px] leading-relaxed text-foreground/60">
+            Три направления, которые покрывают весь цикл работы железнодорожного оператора — от
+            учёта вагона до прогнозирования прибытия.
+          </p>
+        </motion.div>
+        <div className="md:col-span-7">
+          {capabilities.map((c, i) => (
+            <motion.div
+              key={c.title}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-50px" }}
+              variants={fadeUp}
+              className={cn(
+                "flex items-start gap-5 py-6",
+                i > 0 && "border-t border-foreground/10",
+              )}
+            >
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-[#3b6bc4]/10 text-[#3b6bc4]">
+                <c.icon className="h-6 w-6" />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-[20px] font-semibold tracking-tight font-display">{c.title}</h3>
+                <p className="mt-2 text-[14px] leading-relaxed text-foreground/55">{c.desc}</p>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
   );
 }
 
 function StatsSection() {
-  const stats = [
-    { value: "50–70%", label: "Сокращение простоев" },
-    { value: "100%", label: "Видимость парка" },
-    { value: "24/7", label: "Мониторинг станций" },
-    { value: "10+", label: "Крупнейших операторов" },
+  const facts = [
+    { value: "10+", label: "операторов СНГ работают на наших решениях" },
+    { value: "с 2019", label: "года на рынке железнодорожного IT" },
+    { value: "24/7", label: "техническая поддержка по SLA" },
   ];
   return (
     <section className="relative mx-auto mt-32 max-w-6xl px-6">
-      <motion.div
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={stagger}
-        className="grid gap-6 rounded-3xl bg-foreground/[0.03] p-10 ring-1 ring-black/[0.04] md:grid-cols-4"
-      >
-        {stats.map((s) => (
-          <motion.div key={s.label} variants={fadeUp} className="text-center">
-            <div
-              className="text-[clamp(2rem,4vw,3rem)] font-bold tracking-tight text-[#3b6bc4]"
-              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+      <div className="grid gap-10 rounded-3xl bg-foreground/[0.03] p-10 ring-1 ring-black/[0.04] md:grid-cols-12 md:gap-16">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={slideIn}
+          className="md:col-span-6"
+        >
+          <h2 className="text-[clamp(1.6rem,3vw,2.25rem)] font-semibold leading-[1.2] tracking-[-0.03em] font-display">
+            Нам доверяют крупнейшие операторы рынка СНГ
+          </h2>
+        </motion.div>
+        <div className="md:col-span-6">
+          {facts.map((f, i) => (
+            <motion.div
+              key={f.label}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-50px" }}
+              variants={fadeUp}
+              className={cn(
+                "flex items-baseline gap-5 py-4",
+                i > 0 && "border-t border-foreground/10",
+              )}
             >
-              {s.value}
-            </div>
-            <div className="mt-1 text-[14px] text-foreground/60">{s.label}</div>
-          </motion.div>
-        ))}
-      </motion.div>
+              <span className="text-[clamp(1.5rem,3vw,2rem)] font-bold tracking-tight text-[#3b6bc4] font-display tabular-nums">
+                {f.value}
+              </span>
+              <span className="text-[14px] leading-relaxed text-foreground/60">{f.label}</span>
+            </motion.div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }
@@ -407,17 +387,15 @@ function GeographySection() {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-100px" }}
-        variants={stagger}
-        className="text-center"
+        variants={slideIn}
       >
         <motion.h2
           variants={fadeUp}
-          className="text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em]"
-          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+          className="text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em] font-display"
         >
           Работаем по всему рынку СНГ
         </motion.h2>
-        <motion.p variants={fadeUp} className="mt-3 text-[15px] text-foreground/60">
+        <motion.p variants={fadeUp} className="mt-3 max-w-xl text-[15px] text-foreground/60">
           Решения для операторов в Казахстане, Узбекистане, Кыргызстане и других странах региона.
         </motion.p>
       </motion.div>
@@ -441,10 +419,30 @@ function GeographySection() {
 
 function ProcessSection() {
   const steps = [
-    { n: "01", title: "Аудит", desc: "Изучаем процессы, данные и ограничения оператора.", img: processDiscovery },
-    { n: "02", title: "Проектирование", desc: "Проектируем архитектуру и интерфейсы под реальные задачи.", img: processDesign },
-    { n: "03", title: "Разработка", desc: "Ведем разработку итерациями с ежедневной демонстрацией.", img: processBuild },
-    { n: "04", title: "Внедрение", desc: "Запускаем пилот, обучаем персонал и сопровождаем 24/7.", img: processLaunch },
+    {
+      n: "01",
+      title: "Аудит",
+      desc: "Изучаем процессы, данные и ограничения оператора.",
+      img: processDiscovery,
+    },
+    {
+      n: "02",
+      title: "Проектирование",
+      desc: "Проектируем архитектуру и интерфейсы под реальные задачи.",
+      img: processDesign,
+    },
+    {
+      n: "03",
+      title: "Разработка",
+      desc: "Ведем разработку итерациями с ежедневной демонстрацией.",
+      img: processBuild,
+    },
+    {
+      n: "04",
+      title: "Внедрение",
+      desc: "Запускаем пилот, обучаем персонал и сопровождаем 24/7.",
+      img: processLaunch,
+    },
   ];
   return (
     <section className="relative mx-auto mt-32 max-w-6xl px-6">
@@ -452,19 +450,11 @@ function ProcessSection() {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-100px" }}
-        variants={stagger}
-        className="text-center"
+        variants={slideIn}
       >
-        <motion.p
-          variants={fadeUp}
-          className="text-[13px] font-semibold uppercase tracking-[0.2em] text-[#3b6bc4]"
-        >
-          Наш процесс
-        </motion.p>
         <motion.h2
           variants={fadeUp}
-          className="mt-3 text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em]"
-          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+          className="text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em] font-display"
         >
           От идеи до промышленной эксплуатации.
         </motion.h2>
@@ -480,7 +470,6 @@ function ProcessSection() {
           <motion.div
             key={s.n}
             variants={fadeUp}
-            whileHover={{ y: -4 }}
             className="relative overflow-hidden rounded-2xl bg-white p-6 shadow-[0_10px_40px_-20px_rgba(15,30,60,0.12)] ring-1 ring-black/[0.04]"
           >
             <div className="mb-5 -mx-6 -mt-6 aspect-[4/3] overflow-hidden bg-[#eef4ff]">
@@ -496,10 +485,7 @@ function ProcessSection() {
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#4f7fd6] to-[#3b6bc4] text-[13px] font-bold text-white shadow-md">
               {s.n}
             </div>
-            <h3
-              className="mt-5 text-[18px] font-semibold tracking-tight"
-              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-            >
+            <h3 className="mt-5 text-[18px] font-semibold tracking-tight font-display">
               {s.title}
             </h3>
             <p className="mt-2 text-[14px] leading-relaxed text-foreground/55">{s.desc}</p>
@@ -514,24 +500,18 @@ function ProcessSection() {
 }
 
 function AboutSection() {
-  const cards = [
+  const items = [
     {
-      n: "01",
       title: "Специализация на ЖД",
       desc: "Не адаптируем универсальные шаблоны. Строим решения под язык, регламенты и скорость железнодорожной отрасли.",
-      tag: "Отраслевой фокус",
     },
     {
-      n: "02",
       title: "Промышленная надежность",
       desc: "Работаем с крупнейшими операторами СНГ. SLA, 24/7 и контроль качества на каждом этапе.",
-      tag: "SLA 24/7",
     },
     {
-      n: "03",
       title: "Собственная разработка",
       desc: "Команда разработчиков, аналитиков и UX-дизайнеров внутри компании. Без аутсорса критичных компетенций.",
-      tag: "In-house",
     },
   ];
   return (
@@ -540,14 +520,13 @@ function AboutSection() {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-100px" }}
-        variants={stagger}
+        variants={slideIn}
         className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between"
       >
         <div className="max-w-2xl">
           <motion.h2
             variants={fadeUp}
-            className="text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold leading-[1.15] tracking-[-0.03em]"
-            style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+            className="text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold leading-[1.15] tracking-[-0.03em] font-display"
           >
             Multicode — технологический партнер для ЖД-операторов.
           </motion.h2>
@@ -555,8 +534,9 @@ function AboutSection() {
             variants={fadeUp}
             className="mt-4 text-[15px] leading-relaxed text-foreground/60"
           >
-            Мы создаем IT-продукты, которые переводят управление вагонным парком и станциями на новый уровень: от
-            ручных таблиц и телефонных переговоров к единой цифровой платформе с прозрачной аналитикой.
+            Мы создаем IT-продукты, которые переводят управление вагонным парком и станциями на
+            новый уровень: от ручных таблиц и телефонных переговоров к единой цифровой платформе с
+            прозрачной аналитикой.
           </motion.p>
         </div>
         <motion.div
@@ -568,43 +548,33 @@ function AboutSection() {
         </motion.div>
       </motion.div>
 
-      <motion.div
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-50px" }}
-        variants={stagger}
-        className="mt-10 grid gap-5 md:grid-cols-3"
-      >
-        {cards.map((c) => (
+      <div className="mt-12">
+        {items.map((c, i) => (
           <motion.div
-            key={c.n}
+            key={c.title}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: true, margin: "-50px" }}
             variants={fadeUp}
-            whileHover={{ y: -4 }}
-            className="rounded-3xl bg-white p-6 shadow-[0_10px_40px_-20px_rgba(15,30,60,0.12)] ring-1 ring-black/[0.04]"
+            className={cn(
+              "flex flex-col gap-4 py-8 md:flex-row md:items-start md:gap-10",
+              i > 0 && "border-t border-foreground/10",
+            )}
           >
-            <div
-              className="text-[18px] font-bold text-[#3b6bc4]"
-              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-            >
-              {c.n}
-            </div>
-            <h3
-              className="mt-3 text-[20px] font-semibold leading-tight tracking-tight"
-              style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-            >
-              {c.title}
-            </h3>
-            <p className="mt-4 text-[14px] leading-relaxed text-foreground/55">{c.desc}</p>
-            <div className="my-5 h-px bg-foreground/10" />
-            <div className="flex items-center gap-2 text-[13px]">
-              <span className="flex h-5 w-5 items-center justify-center rounded bg-[#3b6bc4]">
-                <Check className="h-3.5 w-3.5 text-white" strokeWidth={3} />
-              </span>
-              {c.tag}
+            <span className="text-[clamp(2rem,4vw,3rem)] font-bold leading-none text-[#3b6bc4]/30 font-display tabular-nums">
+              {String(i + 1).padStart(2, "0")}
+            </span>
+            <div className="flex-1">
+              <h3 className="text-[22px] font-semibold leading-tight tracking-tight font-display">
+                {c.title}
+              </h3>
+              <p className="mt-3 max-w-2xl text-[15px] leading-relaxed text-foreground/55">
+                {c.desc}
+              </p>
             </div>
           </motion.div>
         ))}
-      </motion.div>
+      </div>
     </section>
   );
 }
@@ -635,58 +605,61 @@ function TestimonialsSection() {
   ];
   return (
     <section className="relative mx-auto mt-32 max-w-6xl px-6">
-      <motion.div
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-100px" }}
-        variants={stagger}
-        className="text-center"
-      >
-        <motion.h2
-          variants={fadeUp}
-          className="text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em]"
-          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+      <div className="grid gap-10 md:grid-cols-12 md:gap-16">
+        <motion.div
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={scaleIn}
+          className="md:col-span-7"
         >
-          Доверие крупнейших операторов.
-        </motion.h2>
-      </motion.div>
-      <motion.div
-        initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, margin: "-50px" }}
-        variants={stagger}
-        className="mt-10 grid gap-5 md:grid-cols-3"
-      >
-        {items.map((t) => (
-          <motion.div
-            key={t.name}
-            variants={fadeUp}
-            whileHover={{ y: -4 }}
-            className="flex flex-col rounded-3xl bg-white p-7 shadow-[0_10px_40px_-20px_rgba(15,30,60,0.12)] ring-1 ring-black/[0.04]"
-          >
-            <div className="flex gap-0.5">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="h-4 w-4 text-[#f5b400]" fill="#f5b400" />
-              ))}
+          <p className="font-serif-hero text-[clamp(1.5rem,2.5vw,2rem)] leading-[1.3] tracking-[-0.02em] text-foreground/85">
+            «{items[0].quote}»
+          </p>
+          <div className="mt-6 flex items-center gap-3">
+            <img
+              src={items[0].avatar}
+              alt={items[0].name}
+              loading="lazy"
+              width={48}
+              height={48}
+              className="h-12 w-12 rounded-full object-cover ring-2 ring-white shadow-sm"
+            />
+            <div>
+              <div className="text-[15px] font-semibold font-display">{items[0].name}</div>
+              <div className="text-[13px] text-foreground/50">{items[0].role}</div>
             </div>
-            <p className="mt-4 flex-1 text-[15px] leading-relaxed text-foreground/75">"{t.quote}"</p>
-            <div className="mt-6 flex items-center gap-3 border-t border-foreground/[0.08] pt-4">
-              <img
-                src={t.avatar}
-                alt={t.name}
-                loading="lazy"
-                width={40}
-                height={40}
-                className="h-10 w-10 rounded-full object-cover ring-2 ring-white shadow-sm"
-              />
-              <div>
-                <div className="text-[14px] font-semibold">{t.name}</div>
-                <div className="text-[12px] text-foreground/50">{t.role}</div>
+          </div>
+        </motion.div>
+        <div className="md:col-span-5">
+          {items.slice(1).map((t, i) => (
+            <motion.div
+              key={t.name}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: "-50px" }}
+              variants={fadeUp}
+              className={cn("py-5", i > 0 && "border-t border-foreground/10")}
+            >
+              <p className="text-[15px] leading-relaxed text-foreground/75">«{t.quote}»</p>
+              <div className="mt-4 flex items-center gap-3">
+                <img
+                  src={t.avatar}
+                  alt={t.name}
+                  loading="lazy"
+                  width={36}
+                  height={36}
+                  className="h-9 w-9 rounded-full object-cover ring-2 ring-white shadow-sm"
+                />
+                <div>
+                  <div className="text-[14px] font-semibold">{t.name}</div>
+                  <div className="text-[12px] text-foreground/50">{t.role}</div>
+                </div>
               </div>
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }
@@ -708,8 +681,7 @@ function MediaSection() {
       >
         <motion.h2
           variants={fadeUp}
-          className="text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em]"
-          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+          className="text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em] font-display"
         >
           Медиа о нас
         </motion.h2>
@@ -758,19 +730,11 @@ function ClientsSection() {
         initial="hidden"
         whileInView="show"
         viewport={{ once: true, margin: "-100px" }}
-        variants={stagger}
-        className="text-center"
+        variants={slideIn}
       >
-        <motion.p
-          variants={fadeUp}
-          className="text-[13px] font-semibold uppercase tracking-[0.2em] text-[#3b6bc4]"
-        >
-          Нам доверяют
-        </motion.p>
         <motion.h2
           variants={fadeUp}
-          className="mt-3 text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em]"
-          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+          className="text-[clamp(1.8rem,3.5vw,2.75rem)] font-semibold tracking-[-0.03em] font-display"
         >
           Крупнейшие операторы рынка СНГ.
         </motion.h2>
@@ -845,8 +809,7 @@ function FAQSection() {
       >
         <motion.h2
           variants={fadeUp}
-          className="text-center text-[clamp(2rem,4vw,3rem)] font-semibold tracking-[-0.03em]"
-          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
+          className="text-center text-[clamp(2rem,4vw,3rem)] font-semibold tracking-[-0.03em] font-display"
         >
           Часто задаваемые вопросы
         </motion.h2>
@@ -864,14 +827,8 @@ function FAQSection() {
                 value={`item-${i}`}
                 className="overflow-hidden rounded-2xl border-0 bg-white px-6 shadow-[0_4px_20px_-10px_rgba(15,30,60,0.1)] ring-1 ring-black/[0.03]"
               >
-                <AccordionTrigger
-                  className="py-5 text-left text-[16px] font-semibold hover:no-underline"
-                  style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-                >
-                  <span>
-                    <span className="text-foreground/40">0{i + 1}.</span>
-                    <span className="ml-2">{f.q}</span>
-                  </span>
+                <AccordionTrigger className="py-5 text-left text-[16px] font-semibold hover:no-underline font-display">
+                  {f.q}
                 </AccordionTrigger>
                 <AccordionContent className="space-y-3 pb-5 text-[14px] leading-relaxed text-foreground/60">
                   {f.a.map((p, j) => (
@@ -897,22 +854,12 @@ function CTASection() {
         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         className="relative overflow-hidden rounded-[2.5rem] bg-[#3b6bc4] px-8 py-20 text-center"
       >
-        <div
-          className="pointer-events-none absolute inset-0 opacity-20"
-          style={{
-            backgroundImage:
-              "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.25) 1px, transparent 0)",
-            backgroundSize: "24px 24px",
-          }}
-        />
-        <h2
-          className="relative text-[clamp(2rem,4.5vw,3.5rem)] font-bold leading-[1.05] tracking-[-0.03em] text-white"
-          style={{ fontFamily: "'Space Grotesk', sans-serif" }}
-        >
+        <h2 className="relative text-[clamp(2rem,4.5vw,3.5rem)] font-bold leading-[1.05] tracking-[-0.03em] text-white font-display">
           Переведите управление парком на новый уровень.
         </h2>
         <p className="relative mx-auto mt-5 max-w-xl text-[16px] leading-relaxed text-white/75">
-          Свяжитесь с нами по любым вопросам. Менеджер поможет выбрать решение и подготовит коммерческое предложение.
+          Свяжитесь с нами по любым вопросам. Менеджер поможет выбрать решение и подготовит
+          коммерческое предложение.
         </p>
         <div className="relative mt-9 flex flex-wrap items-center justify-center gap-3">
           <a

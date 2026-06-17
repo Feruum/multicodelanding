@@ -44,7 +44,9 @@ function FadingLoopVideo() {
           v.currentTime = 0;
           const p = v.play();
           if (p && p.catch) p.catch(() => {});
-        } catch {}
+        } catch {
+          void 0;
+        }
         fadingRef.current = false;
       }, 100);
     };
@@ -85,10 +87,7 @@ function FadingLoopVideo() {
 /* ---------- Aethera-style hero (dark, centered, with our video) ---------- */
 export function Hero() {
   return (
-    <section
-      id="top"
-      className="relative min-h-screen w-full overflow-hidden bg-black text-white"
-    >
+    <section id="top" className="relative min-h-screen w-full overflow-hidden bg-black text-white">
       <FadingLoopVideo />
 
       {/* subtle vignette / overlay for readability */}
@@ -99,25 +98,15 @@ export function Hero() {
 
       {/* Center content */}
       <div className="absolute inset-0 z-10 flex flex-col items-center justify-center px-6 py-24 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-1.5 text-[13px] text-white/90 backdrop-blur-sm"
-        >
-          <span className="h-2 w-2 rounded-full bg-white animate-pulse" />
-          <span>Системы в работе</span>
-        </motion.div>
-
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{
             duration: 0.8,
-            delay: 0.1,
+            delay: 0,
             ease: [0.22, 1, 0.36, 1],
           }}
-          className={`${serif} mx-auto mt-6 max-w-5xl text-5xl font-normal sm:text-6xl md:text-7xl lg:text-8xl`}
+          className={`${serif} mx-auto max-w-5xl text-5xl font-normal sm:text-6xl md:text-7xl lg:text-8xl`}
           style={{
             lineHeight: 0.95,
             letterSpacing: "-0.04em",
@@ -136,18 +125,18 @@ export function Hero() {
         <motion.p
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.3 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
           className="mx-auto mt-8 max-w-2xl text-base leading-relaxed text-white/70 sm:text-lg"
           style={{ textWrap: "balance" }}
         >
-          Комплексная платформа автоматизации для ЖД-операторов. Управление
-          вагонным парком, цифровизация станций, аналитика на базе ИИ.
+          Комплексная платформа автоматизации для ЖД-операторов. Управление вагонным парком,
+          цифровизация станций, аналитика на базе ИИ.
         </motion.p>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.45 }}
+          transition={{ duration: 0.6, delay: 0.35 }}
           className="mt-10"
         >
           <a
@@ -161,12 +150,11 @@ export function Hero() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.55 }}
+          transition={{ duration: 0.6, delay: 0.45 }}
           className="mt-14 flex items-center gap-8 text-xs uppercase tracking-[0.22em] text-white/60"
         >
           <span className="flex items-center gap-2">
-            <span className="inline-block h-1.5 w-1.5 rounded-full bg-white drift" />
-            с 2019
+            <span className="inline-block h-1.5 w-1.5 rounded-full bg-white drift" />с 2019
           </span>
           <span className="hidden sm:inline">/</span>
           <span className="hidden sm:inline">IT для железнодорожной отрасли</span>
