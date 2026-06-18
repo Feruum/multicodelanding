@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, useCallback } from "react";
 import trainImg from "@/assets/train-another-transparent.png";
-import railwayImg from "@/assets/railway-another-transparent.png";
+import railwayImg from "@/assets/new_railway_cropped.png";
 
 const THUMB_WIDTH = 12; // Tailwind w-3 = 12px
 const THUMB_HEIGHT = Math.round((1802 / 137) * THUMB_WIDTH); // full train aspect ratio

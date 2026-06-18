@@ -2,6 +2,9 @@ import * as React from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import anuarPhoto from "@/assets/team-anuar-new.jpg";
+import zangirPhoto from "@/assets/team-zangir.jpg";
+import almatPhoto from "@/assets/team-almat.jpg";
 
 interface TeamMember {
   id: string;
@@ -14,52 +17,24 @@ interface TeamMember {
 const teamMembers: TeamMember[] = [
   {
     id: "1",
-    name: "Алексей Морозов",
-    role: "CEO & Сооснователь",
-    bio: "15 лет в ЖД-логистике. Отвечает за стратегию и отношения с операторами.",
-    imageSrc: "https://i.pravatar.cc/600?img=12",
+    name: "Ануар Сарсембинов",
+    role: "Founder & CEO",
+    bio: "Сооснователь Smart System Technologies. Выпускник Назарбаев Университета и Politecnico di Milano. Стратегия, партнёрства, развитие компании.",
+    imageSrc: anuarPhoto,
   },
   {
     id: "2",
-    name: "Данияр Сулейменов",
-    role: "CTO & Сооснователь",
-    bio: "Архитектор платформы. Превращает отраслевые требования в технические решения.",
-    imageSrc: "https://i.pravatar.cc/600?img=33",
+    name: "Зангир Икласов",
+    role: "AI Research Advisor",
+    bio: "PhD в машинном обучении (MBZUAI). Профессор AI, автор публикаций в NeurIPS и ACL. 172 цитирования, h-index 7. Исследования RL и LLM.",
+    imageSrc: zangirPhoto,
   },
   {
     id: "3",
-    name: "Ирина Волкова",
-    role: "Lead Developer",
-    bio: "Руководит frontend-командой. Отвечает за UX и производительность интерфейсов.",
-    imageSrc: "https://i.pravatar.cc/600?img=45",
-  },
-  {
-    id: "4",
-    name: "Тимур Беков",
-    role: "Product Designer",
-    bio: "Проектирует интерфейсы диспетчерских и операторских панелей.",
-    imageSrc: "https://i.pravatar.cc/600?img=51",
-  },
-  {
-    id: "5",
-    name: "Анна Лебедева",
-    role: "ML Engineer",
-    bio: "Развивает ИИ-аналитику: прогноз прибытия, выявление узких мест.",
-    imageSrc: "https://i.pravatar.cc/600?img=47",
-  },
-  {
-    id: "6",
-    name: "Руслан Алиев",
-    role: "DevOps Engineer",
-    bio: "Обеспечивает стабильность и SLA 24/7 для промышленных инсталляций.",
-    imageSrc: "https://i.pravatar.cc/600?img=68",
-  },
-  {
-    id: "7",
-    name: "Максим Орлов",
-    role: "Head of Sales",
-    bio: "Ведёт переговоры с операторами СНГ и сопровождает пилотные проекты.",
-    imageSrc: "https://i.pravatar.cc/600?img=60",
+    name: "Алмат Шакенов",
+    role: "AI/ML Engineer",
+    bio: "Сооснователь. Production ML, компьютерное зрение, RAG-системы и LLM. Выпускник Назарбаев Университета.",
+    imageSrc: almatPhoto,
   },
 ];
 
@@ -219,8 +194,8 @@ export function TeamSection() {
             variants={fadeUp}
             className="mt-3 max-w-xl text-[15px] leading-relaxed text-foreground/60"
           >
-            Инженеры, дизайнеры и эксперты ЖД-отрасли, которые строят продукты, меняющие работу
-            операторов.
+            Инженеры и исследователи ИИ, создающие продукты на стыке машинного обучения и отраслевых
+            задач.
           </motion.p>
         </div>
         <div className="hidden shrink-0 items-center gap-2 sm:flex">
