@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Check, Train, Radio, Cpu, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Hero } from "@/components/hero";
+import { TeamSection } from "@/components/team-section";
 import {
   Accordion,
   AccordionContent,
@@ -937,6 +938,7 @@ function Index() {
         <GeographySection />
         <ProcessSection />
         <AboutSection />
+        <TeamSection />
         <ClientsSection />
         <TestimonialsSection />
         <MediaSection />
